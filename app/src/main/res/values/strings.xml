@@ -17,4 +17,6 @@
     <string name="google">GOOGLE</string>
     <string name="facebook">FACEBOOK</string>
     <string name="guest">GUEST</string>
+
+    <string name="user_url">https://api.rofi.games/api/pe</string>
 </resources>

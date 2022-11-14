@@ -10,6 +10,7 @@ import android.view.WindowManager;
 
 import com.bzsdk.loginmodule.fragments.SignInFragment;
 import com.bzsdk.loginmodule.fragments.SignUpFragment;
+import com.bzsdk.loginmodule.network.NetworkService;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -28,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         ShowSignInFragment();
+
+        NetworkService.getInstance().Init(LoginActivity.this);
     }
 
     public void ShowSignInFragment() {

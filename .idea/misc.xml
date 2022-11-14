@@ -3,11 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/LoginModule/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2015" />
         <entry key="..\:/LoginModule/app/src/main/res/drawable/editex_bg.xml" value="0.1855" />
         <entry key="..\:/LoginModule/app/src/main/res/drawable/ic_baseline_person.xml" value="0.172" />
-        <entry key="..\:/LoginModule/app/src/main/res/drawable/signin_bg.xml" value="0.2825" />
+        <entry key="..\:/LoginModule/app/src/main/res/drawable/ic_baseline_security.xml" value="0.2015" />
+        <entry key="..\:/LoginModule/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2015" />
+        <entry key="..\:/LoginModule/app/src/main/res/drawable/signin_bg.xml" value="0.25" />
         <entry key="..\:/LoginModule/app/src/main/res/layout/activity_login.xml" value="0.22" />
-        <entry key="..\:/LoginModule/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/LoginModule/app/src/main/res/layout/activity_main.xml" value="0.14" />
         <entry key="..\:/LoginModule/app/src/main/res/layout/fragment_sign_in.xml" value="0.33" />
         <entry key="..\:/LoginModule/app/src/main/res/layout/fragment_sign_up.xml" value="0.25" />
       </map>

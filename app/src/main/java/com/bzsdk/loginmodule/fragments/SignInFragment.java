@@ -81,11 +81,13 @@ public class SignInFragment extends Fragment {
 
     private void OpenSignUp(){
         // Begin the transaction
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+
         // Replace the contents of the container with the new fragment
-        ft.replace(R.id.fragment_container, new SignUpFragment());
-        // or ft.add(R.id.your_placeholder, new FooFragment());
+        transaction.replace(R.id.fragment_container, new SignUpFragment());
+        transaction.addToBackStack(null);
+
         // Complete the changes added above
-        ft.commit();
+        transaction.commit();
     }
 }
