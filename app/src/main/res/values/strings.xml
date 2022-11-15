@@ -19,4 +19,8 @@
     <string name="guest">GUEST</string>
 
     <string name="user_url">https://api.rofi.games/api/pe</string>
+
+    <string name="facebook_app_id">509295011251112</string>
+    <string name="fb_login_protocol_scheme">fb509295011251112</string>
+    <string name="facebook_client_token">84c0156ef42dd9de5c66a8e1e736dc73</string>
 </resources>

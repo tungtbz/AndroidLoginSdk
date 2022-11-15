@@ -12,7 +12,8 @@
         <entry key="..\:/LoginModule/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/LoginModule/app/src/main/res/layout/activity_main.xml" value="0.14" />
         <entry key="..\:/LoginModule/app/src/main/res/layout/fragment_sign_in.xml" value="0.33" />
-        <entry key="..\:/LoginModule/app/src/main/res/layout/fragment_sign_up.xml" value="0.25" />
+        <entry key="..\:/LoginModule/app/src/main/res/layout/fragment_sign_up.xml" value="0.18" />
+        <entry key="..\:/LoginModule/app/src/main/res/layout/loading_dialog.xml" value="1.0" />
       </map>
     </option>
   </component>

@@ -8,13 +8,17 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.bzsdk.loginmodule.dialogs.LoadingDialog;
 import com.bzsdk.loginmodule.fragments.SignInFragment;
 import com.bzsdk.loginmodule.fragments.SignUpFragment;
 import com.bzsdk.loginmodule.network.NetworkService;
+import com.facebook.CallbackManager;
+import com.facebook.login.widget.LoginButton;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Fragment mCurFragment;
+    private Fragment mCurFragment;
+    private LoadingDialog mLoadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,8 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_login);
+
+        mLoadingDialog = new LoadingDialog(LoginActivity.this);
     }
 
     @Override
@@ -53,5 +59,13 @@ public class LoginActivity extends AppCompatActivity {
         // or ft.add(R.id.your_placeholder, new FooFragment());
         // Complete the changes added above
         ft.commit();
+    }
+
+    public void ShowLoadingDialog(String title) {
+        mLoadingDialog.ShowDialog(title);
+    }
+
+    public void HideLoadingDialog() {
+        mLoadingDialog.HideDialog();
     }
 }

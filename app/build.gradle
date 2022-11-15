@@ -31,11 +31,13 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         debug {
+            minifyEnabled false
             applicationIdSuffix ".debug"
             debuggable true
         }
@@ -72,5 +74,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'com.google.code.gson:gson:2.10'
-    implementation 'org.greenrobot:eventbus:3.3.1'
+
+    //fb sdk
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
 }

@@ -1,4 +1,4 @@
-package com.bzsdk.loginmodule;
+package com.bzsdk.loginmodule.network;
 
 public class BaseResponse {
     public int code;

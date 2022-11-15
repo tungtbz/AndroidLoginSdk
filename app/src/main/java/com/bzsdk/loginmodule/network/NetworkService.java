@@ -1,10 +1,9 @@
 package com.bzsdk.loginmodule.network;
 
-import static com.bzsdk.loginmodule.network.Constants.API_STATUS_CODE;
-
 import android.app.Activity;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.volley.Cache;
@@ -13,28 +12,29 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.HurlStack;
-import com.bzsdk.loginmodule.BZURL;
-import com.bzsdk.loginmodule.BaseResponse;
 import com.bzsdk.loginmodule.R;
-import com.bzsdk.loginmodule.events.SignUpAccountSuccessEvent;
+
 import com.google.gson.Gson;
 
-import org.greenrobot.eventbus.EventBus;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 
 public class NetworkService {
-
-
     private static NetworkService mInstace = null;
 
     private String TAG = "~~~~~~[NetworkService]";
     private String mBaseUrl;
     private RequestQueue mRequestQueue;
     private boolean mInit = false;
+
+//    private SignUpEvent mSignUpEvent;
+//    private SigninEvent mSigninEvent;
 
     public static NetworkService getInstance() {
         if (null == mInstace) {
@@ -53,36 +53,47 @@ public class NetworkService {
         mInit = true;
     }
 
-    public void SignupByPassword(String userName, String password, @Nullable String email) {
+    public void SignupByPassword(String userName, String password,
+                                 @Nullable String email,
+                                 @NonNull SignUpEvent signUpEventListener) {
         String url = mBaseUrl + BZURL.POST_SIGNUP_BY_PASS;
         Log.d(TAG, "--> SignupByPassword --> BZURL: " + url);
         Log.d(TAG, "--> SignupByPassword --> userName: " + userName);
         Log.d(TAG, "--> SignupByPassword --> password: " + password);
+
+//        mSignUpEvent = signUpEventListener;
+
         try {
             JSONObject requestData = new JSONObject()
-                    .put("username", userName)
-                    .put("password", password);
-            if (email != null) requestData = requestData.put("email", email);
+                    .put(Constants.USERNAME_STR, userName)
+                    .put(Constants.PASSWORD_STR, password);
+            if (email != null) requestData = requestData.put(Constants.EMAIL_STR, email);
 
             JsonObjectRequestExtend request = new JsonObjectRequestExtend(Request.Method.POST, url, requestData,
                     response -> {
-                        int httpStatusCode = -1;
-                        Log.d(TAG, "--> SignupByPassword --> response: " + response.toString());
-                        try {
-                            httpStatusCode = response.getInt(Constants.HTTP_STATUS_CODE_STR);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
                         BaseResponse responseData = new Gson().fromJson(response.toString(), BaseResponse.class);
                         if (responseData.code == Constants.API_STATUS_CODE_OK) {
                             //back to login scene
-                            EventBus.getDefault().post(new SignUpAccountSuccessEvent());
+                            signUpEventListener.onSuccess();
+                        } else {
+                            Log.d(TAG, "--> SignupByPassword ->>> : " + responseData.message);
+                            signUpEventListener.onError(responseData.message);
                         }
                     },
                     error -> {
-                        Log.d(TAG, "--> SignupByPassword --> error: " + error.toString());
+                        try {
+                            String jsonString =
+                                    new String(
+                                            error.networkResponse.data,
+                                            HttpHeaderParser.parseCharset(error.networkResponse.headers, "utf-8"));
+
+                            JSONArray jsonArray = new JSONArray(jsonString);
+                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+                            String message = jsonObject.getString(Constants.MESSAGE_STR);
+                            signUpEventListener.onError(message);
+                        } catch (UnsupportedEncodingException | JSONException e) {
+                            e.printStackTrace();
+                        }
                     });
 
             mRequestQueue.add(request);
@@ -90,6 +101,56 @@ public class NetworkService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void SigninWithPass(String userName, String pass, @NonNull SigninEvent signinEvent) {
+        String url = mBaseUrl + BZURL.POST_LOGIN_BY_PASS;
+//        mSigninEvent = signinEvent;
+        Log.d(TAG, "--> SigninWithPass --> BZURL: " + url);
+        Log.d(TAG, "--> SigninWithPass --> userName: " + userName);
+        Log.d(TAG, "--> SigninWithPass --> password: " + pass);
+        try {
+            JSONObject requestData = new JSONObject()
+                    .put(Constants.ACCOUNT_STR, userName)
+                    .put(Constants.PASSWORD_STR, pass);
+
+            JsonObjectRequestExtend request = new JsonObjectRequestExtend(Request.Method.POST, url, requestData,
+                    response -> {
+                        if (response.has(Constants.ACCESS_TOKEN_STR)) {
+                            signinEvent.onSuccess(response.toString());
+                        } else {
+                            LoginResponse responseData = new Gson().fromJson(response.toString(), LoginResponse.class);
+                            if (responseData.code == Constants.API_STATUS_CODE_USER_NOT_EXIT) {
+                                signinEvent.onError("Username or password is incorrect. Please try again.");
+                            }
+                        }
+                    },
+                    error -> {
+                        Log.d(TAG, "--> SignupByPassword --> error: " + error.networkResponse.statusCode);
+                        try {
+                            String jsonString =
+                                    new String(
+                                            error.networkResponse.data,
+                                            HttpHeaderParser.parseCharset(error.networkResponse.headers, "utf-8"));
+
+                            JSONArray jsonArray = new JSONArray(jsonString);
+                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+                            String message = jsonObject.getString(Constants.MESSAGE_STR);
+
+                            signinEvent.onError(message);
+
+                        } catch (UnsupportedEncodingException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+            mRequestQueue.add(request);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     private void CreateRequestQueue(File rootDirectory) {
@@ -104,4 +165,15 @@ public class NetworkService {
         }
     }
 
+    public interface SignUpEvent {
+        void onSuccess();
+
+        void onError(String message);
+    }
+
+    public interface SigninEvent {
+        void onSuccess(String jsonStr);
+
+        void onError(String message);
+    }
 }

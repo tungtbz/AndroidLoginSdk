@@ -1,4 +1,4 @@
-package com.bzsdk.loginmodule;
+package com.bzsdk.loginmodule.network;
 
 public class BZURL {
     public static final String GET_USER_INFO = "/api/v1/users/info";

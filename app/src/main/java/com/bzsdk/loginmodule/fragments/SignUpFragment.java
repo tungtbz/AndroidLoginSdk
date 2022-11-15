@@ -1,6 +1,8 @@
 package com.bzsdk.loginmodule.fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.SpannableString;
@@ -8,6 +10,7 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +23,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bzsdk.loginmodule.LoginActivity;
 import com.bzsdk.loginmodule.network.NetworkService;
 import com.bzsdk.loginmodule.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,6 +41,7 @@ public class SignUpFragment extends Fragment {
     TextInputEditText mPasswordTextInputEditText;
     TextInputEditText mConfirmPasswordTextInputEditText;
     Pattern mEmailPattern;
+
     public SignUpFragment() {
 
     }
@@ -61,14 +62,13 @@ public class SignUpFragment extends Fragment {
                 + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         mEmailPattern = Pattern.compile(emailRegex);
 
-        EventBus.getDefault().register(this);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
-    public void OnSigUpDone(){
-        OpenSignIn();
-    }
+    @Override
+    public void onStop() {
 
+        super.onStop();
+    }
 
     private void SetupView() {
 
@@ -77,21 +77,22 @@ public class SignUpFragment extends Fragment {
             CallSignUp();
         });
 
-        TextView forgotPasswordTextView = getView().findViewById(R.id.txt_term);
+        TextView termTextView = getView().findViewById(R.id.txt_term);
 
-        String forgetPassText = getActivity().getResources().getString(R.string.term_text);
-        SpannableString fpSpannableString = new SpannableString(forgetPassText);
+        String termText = getActivity().getResources().getString(R.string.term_text);
+        SpannableString fpSpannableString = new SpannableString(termText);
         ClickableSpan fpClickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View view) {
-                //open forget pass fragment
-                Toast.makeText(getActivity(), "Open Term And Service Page", Toast.LENGTH_SHORT).show();
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                startActivity(browserIntent);
             }
         };
-        fpSpannableString.setSpan(fpClickableSpan, 0, forgetPassText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        forgotPasswordTextView.setText(fpSpannableString);
-        forgotPasswordTextView.setMovementMethod(LinkMovementMethod.getInstance());
-        forgotPasswordTextView.setHighlightColor(Color.TRANSPARENT);
+
+        fpSpannableString.setSpan(fpClickableSpan, 31, termText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        termTextView.setText(fpSpannableString);
+        termTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        termTextView.setHighlightColor(Color.TRANSPARENT);
 
         TextView signinTextView = getView().findViewById(R.id.txt_backto_signin);
 
@@ -102,6 +103,7 @@ public class SignUpFragment extends Fragment {
             public void onClick(@NonNull View view) {
                 //open forget pass fragment
                 Toast.makeText(getActivity(), "Back To Sign In", Toast.LENGTH_SHORT).show();
+                OpenSignIn();
             }
         };
 
@@ -111,12 +113,69 @@ public class SignUpFragment extends Fragment {
         signinTextView.setHighlightColor(Color.TRANSPARENT);
 
         mUserNameInputLayout = getView().findViewById(R.id.editTextTextEmailAddressLayout);
+
         mPassInputLayout = getView().findViewById(R.id.editTextPasswordLayout);
         mConfirmPassInputLayout = getView().findViewById(R.id.editTextConfirmPasswordLayout);
 
 
         mUserNameTextInputEditText = getView().findViewById(R.id.username_edittext);
+        mUserNameTextInputEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int length = editable.length();
+                if (length == 0) {
+                    mUserNameInputLayout.setError("This field cannot be empty");
+                    return;
+                }
+
+                if(length < 6) {
+                    mUserNameInputLayout.setError("The length of 'Username' must be at least 6 characters");
+                    return;
+                }
+                mUserNameInputLayout.setError(null);
+            }
+        });
+
+
+
         mPasswordTextInputEditText = getView().findViewById(R.id.pass_edittext);
+        mPasswordTextInputEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int length = editable.length();
+                if (length == 0) {
+                    mPassInputLayout.setError("This field cannot be empty");
+                    return;
+                }
+
+                if(length < 6) {
+                    mPassInputLayout.setError("The length of 'Password' must be at least 6 characters");
+                    return;
+                }
+                mPassInputLayout.setError(null);
+            }
+        });
+
         mConfirmPasswordTextInputEditText = getView().findViewById(R.id.confirmpass_edittext);
         mConfirmPasswordTextInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -155,10 +214,30 @@ public class SignUpFragment extends Fragment {
         String pass = mPasswordTextInputEditText.getText().toString();
 
         Matcher mat = mEmailPattern.matcher(userName);
-        NetworkService.getInstance().SignupByPassword(userName,pass, mat.matches() ? userName : null);
+
+        LoginActivity activity = (LoginActivity)getActivity();
+        activity.ShowLoadingDialog("Signup");
+
+        NetworkService.getInstance().SignupByPassword(userName, pass, mat.matches() ? userName : null, new NetworkService.SignUpEvent() {
+            @Override
+            public void onSuccess() {
+                Toast toast =  Toast.makeText(getActivity(), "Sign up successfully", Toast.LENGTH_LONG);
+                toast.show();
+                OpenSignIn();
+                activity.HideLoadingDialog();
+            }
+
+            @Override
+            public void onError(String message) {
+                //show toast
+               Toast toast =  Toast.makeText(getActivity(), message, Toast.LENGTH_LONG);
+               toast.show();
+                activity.HideLoadingDialog();
+            }
+        });
     }
 
-    private void OpenSignIn(){
+    private void OpenSignIn() {
         // Begin the transaction
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
 

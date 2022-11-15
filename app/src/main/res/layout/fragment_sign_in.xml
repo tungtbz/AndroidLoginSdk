@@ -20,6 +20,7 @@
             android:background="@android:color/transparent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/username_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_baseline_person"
@@ -39,6 +40,7 @@
             android:layout_marginTop="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
@@ -63,10 +65,10 @@
         android:id="@+id/signin_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="150dp"
         android:layout_below="@+id/usernamepass_layout"
         android:layout_centerHorizontal="true"
         android:background="@drawable/signin_bg"
+        android:minWidth="150dp"
         android:text="@string/sign_in_text" />
 
     <TextView
@@ -107,11 +109,13 @@
             android:layout_marginEnd="10dp"
             />
 
-        <Button
-            android:id="@+id/signin_facebook"
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/facebook"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp" />
 
         <Button
             android:id="@+id/signin_guest"
