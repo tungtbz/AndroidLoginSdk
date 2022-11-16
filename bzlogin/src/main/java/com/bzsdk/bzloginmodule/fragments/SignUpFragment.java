@@ -133,12 +133,12 @@ public class SignUpFragment extends Fragment {
             public void afterTextChanged(Editable editable) {
                 int length = editable.length();
                 if (length == 0) {
-                    mUserNameInputLayout.setError("This field cannot be empty");
+                    mUserNameInputLayout.setError(getString(R.string.edittext_not_empty_error));
                     return;
                 }
 
                 if(length < 6) {
-                    mUserNameInputLayout.setError("The length of 'Username' must be at least 6 characters");
+                    mUserNameInputLayout.setError(getString(R.string.username_min_length_error));
                     return;
                 }
                 mUserNameInputLayout.setError(null);
@@ -163,12 +163,12 @@ public class SignUpFragment extends Fragment {
             public void afterTextChanged(Editable editable) {
                 int length = editable.length();
                 if (length == 0) {
-                    mPassInputLayout.setError("This field cannot be empty");
+                    mPassInputLayout.setError(getString(R.string.edittext_not_empty_error));
                     return;
                 }
 
                 if(length < 6) {
-                    mPassInputLayout.setError("The length of 'Password' must be at least 6 characters");
+                    mPassInputLayout.setError(getString(R.string.password_min_length_error));
                     return;
                 }
                 mPassInputLayout.setError(null);
@@ -190,13 +190,13 @@ public class SignUpFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.length() == 0) {
-                    mConfirmPassInputLayout.setError("This field cannot be empty");
+                    mConfirmPassInputLayout.setError(getString(R.string.edittext_not_empty_error));
                     return;
                 }
                 Editable pass = mPasswordTextInputEditText.getText();
                 if (pass.length() > 0) {
                     if (!pass.toString().equals(editable.toString())) {
-                        mConfirmPassInputLayout.setError("Password does not match");
+                        mConfirmPassInputLayout.setError(getString(R.string.password_not_match_error));
 
                         return;
                     }
@@ -215,9 +215,9 @@ public class SignUpFragment extends Fragment {
         Matcher mat = mEmailPattern.matcher(userName);
 
         LoginActivity activity = (LoginActivity)getActivity();
-        activity.ShowLoadingDialog("Signup");
+        activity.ShowLoadingDialog(getString(R.string.sign_in_text));
 
-        NetworkService.getInstance().SignupByPassword(userName, pass, mat.matches() ? userName : null, new NetworkService.SignUpEvent() {
+        NetworkService.getInstance().SignupByPassword(userName, pass, mat.matches() ? userName : null, new NetworkService.SignUpCallback() {
             @Override
             public void onSuccess() {
                 Toast toast =  Toast.makeText(getActivity(), "Sign up successfully", Toast.LENGTH_LONG);

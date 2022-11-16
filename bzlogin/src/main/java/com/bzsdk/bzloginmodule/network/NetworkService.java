@@ -52,7 +52,7 @@ public class NetworkService {
 
     public void SignupByPassword(String userName, String password,
                                  @Nullable String email,
-                                 @NonNull SignUpEvent signUpEventListener) {
+                                 @NonNull SignUpCallback signUpEventListener) {
         String url = mBaseUrl + BZURL.POST_SIGNUP_BY_PASS;
         Log.d(TAG, "--> SignupByPassword --> BZURL: " + url);
         Log.d(TAG, "--> SignupByPassword --> userName: " + userName);
@@ -100,7 +100,7 @@ public class NetworkService {
         }
     }
 
-    public void SigninWithPass(String userName, String pass, @NonNull SigninEvent signinEvent) {
+    public void SigninWithPass(String userName, String pass, @NonNull SignInCallback signinEvent) {
         String url = mBaseUrl + BZURL.POST_LOGIN_BY_PASS;
 //        mSigninEvent = signinEvent;
         Log.d(TAG, "--> SigninWithPass --> BZURL: " + url);
@@ -146,7 +146,7 @@ public class NetworkService {
         }
     }
 
-    public void SignInWithGG(String idToken, SigninEvent signinEvent){
+    public void SignInWithGG(String idToken, SignInCallback signinEvent) {
         String url = mBaseUrl + BZURL.POST_LOGIN_BY_GOOGLE;
         Log.d(TAG, "--> SignInWithGG --> URL: " + url);
         Log.d(TAG, "--> SignInWithGG --> token: " + idToken);
@@ -191,7 +191,7 @@ public class NetworkService {
         }
     }
 
-    public void SignInWithFb(String fbToken, SigninEvent signinEvent){
+    public void SignInWithFb(String fbToken, SignInCallback signInCallback) {
         String url = mBaseUrl + BZURL.POST_LOGIN_BY_FACEBOOK;
         Log.d(TAG, "--> SignInWithFb --> URL: " + url);
         Log.d(TAG, "--> SignInWithFb --> fbToken: " + fbToken);
@@ -203,11 +203,11 @@ public class NetworkService {
             JsonObjectRequestExtend request = new JsonObjectRequestExtend(Request.Method.POST, url, requestData,
                     response -> {
                         if (response.has(Constants.ACCESS_TOKEN_STR)) {
-                            signinEvent.onSuccess(response.toString());
+                            signInCallback.onSuccess(response.toString());
                         } else {
                             LoginResponse responseData = new Gson().fromJson(response.toString(), LoginResponse.class);
 
-                            signinEvent.onError(responseData.message);
+                            signInCallback.onError(responseData.message);
                         }
                     },
                     error -> {
@@ -222,7 +222,7 @@ public class NetworkService {
                             JSONObject jsonObject = jsonArray.getJSONObject(0);
                             String message = jsonObject.getString(Constants.MESSAGE_STR);
 
-                            signinEvent.onError(message);
+                            signInCallback.onError(message);
 
                         } catch (UnsupportedEncodingException | JSONException e) {
                             e.printStackTrace();
@@ -236,13 +236,44 @@ public class NetworkService {
         }
     }
 
-    public void SendOpt_ResetPassword(String email){
+    public void SendOpt_ResetPassword(String email, BaseCallback sendOtpCallback) {
         String url = mBaseUrl + BZURL.POST_RECOVERY_PASSWORD_REQUEST_OPT;
 
         try {
             JSONObject requestData = new JSONObject()
                     .put(Constants.ACCOUNT_STR, email);
 
+            JsonObjectRequestExtend request = new JsonObjectRequestExtend(Request.Method.POST, url, requestData,
+                    response -> {
+                        BaseResponse responseData = new Gson().fromJson(response.toString(), BaseResponse.class);
+                        if (responseData.code == Constants.API_STATUS_CODE_OK) {
+                            //back to login scene
+                            sendOtpCallback.onSuccess();
+                        } else {
+                            Log.d(TAG, "--> SignupByPassword ->>> : " + responseData.message);
+                            sendOtpCallback.onError(responseData.message);
+                        }
+                    },
+                    error -> {
+                        Log.d(TAG, "--> SignupByPassword --> error: " + error.networkResponse.statusCode);
+                        try {
+                            String jsonString =
+                                    new String(
+                                            error.networkResponse.data,
+                                            HttpHeaderParser.parseCharset(error.networkResponse.headers, "utf-8"));
+
+                            JSONArray jsonArray = new JSONArray(jsonString);
+                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+                            String message = jsonObject.getString(Constants.MESSAGE_STR);
+
+                            sendOtpCallback.onError(message);
+
+                        } catch (UnsupportedEncodingException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+            mRequestQueue.add(request);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -262,15 +293,22 @@ public class NetworkService {
         }
     }
 
-    public interface SignUpEvent {
+    public interface BaseCallback {
         void onSuccess();
 
         void onError(String message);
     }
 
-    public interface SigninEvent {
+
+    public interface SignUpCallback extends BaseCallback {
+    }
+
+    public interface SignInCallback {
         void onSuccess(String jsonStr);
 
         void onError(String message);
+    }
+
+    public interface RequestOtpEvent extends BaseCallback {
     }
 }

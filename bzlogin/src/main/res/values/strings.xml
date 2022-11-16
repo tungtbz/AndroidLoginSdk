@@ -25,5 +25,11 @@
     <string name="facebook">FACEBOOK</string>
     <string name="guest">GUEST</string>
 
+    <string name="email_format_error">This is not valid email</string>
+    <string name="edittext_not_empty_error">This field cannot be empty</string>
+    <string name="username_min_length_error">The length of \'Username\' must be at least 6 characters</string>
+    <string name="password_min_length_error">The length of \'Password\' must be at least 6 characters</string>
+    <string name="password_not_match_error">Password does not match</string>
+
     <string name="user_url">https://api.rofi.games</string>
 </resources>

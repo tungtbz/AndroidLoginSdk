@@ -141,7 +141,7 @@ public class SignInFragment extends Fragment {
         LoginActivity activity = (LoginActivity) getActivity();
         activity.ShowLoadingDialog("Signin");
 
-        NetworkService.getInstance().SigninWithPass(userName, pass, new NetworkService.SigninEvent() {
+        NetworkService.getInstance().SigninWithPass(userName, pass, new NetworkService.SignInCallback() {
             @Override
             public void onSuccess(String jsonStr) {
                 Toast toast = Toast.makeText(getActivity(), "Sign in successfully", Toast.LENGTH_LONG);
@@ -273,7 +273,7 @@ public class SignInFragment extends Fragment {
                 LoginActivity activity = (LoginActivity) getActivity();
                 activity.ShowLoadingDialog("Signin");
 
-                NetworkService.getInstance().SignInWithFb(loginResult.getAccessToken().getToken(), new NetworkService.SigninEvent() {
+                NetworkService.getInstance().SignInWithFb(loginResult.getAccessToken().getToken(), new NetworkService.SignInCallback() {
                     @Override
                     public void onSuccess(String jsonStr) {
                         Toast toast = Toast.makeText(getActivity(), "Sign in successfully", Toast.LENGTH_LONG);
@@ -311,7 +311,7 @@ public class SignInFragment extends Fragment {
     private void SignInWithGg(String token) {
         LoginActivity activity = (LoginActivity) getActivity();
         activity.ShowLoadingDialog("Signin");
-        NetworkService.getInstance().SignInWithGG(token, new NetworkService.SigninEvent() {
+        NetworkService.getInstance().SignInWithGG(token, new NetworkService.SignInCallback() {
             @Override
             public void onSuccess(String jsonStr) {
                 Toast toast = Toast.makeText(getActivity(), "Sign in successfully", Toast.LENGTH_LONG);
