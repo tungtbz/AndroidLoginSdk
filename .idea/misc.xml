@@ -13,7 +13,21 @@
         <entry key="..\:/LoginModule/app/src/main/res/layout/activity_main.xml" value="0.14" />
         <entry key="..\:/LoginModule/app/src/main/res/layout/fragment_sign_in.xml" value="0.33" />
         <entry key="..\:/LoginModule/app/src/main/res/layout/fragment_sign_up.xml" value="0.18" />
-        <entry key="..\:/LoginModule/app/src/main/res/layout/loading_dialog.xml" value="1.0" />
+        <entry key="..\:/LoginModule/app/src/main/res/layout/loading_dialog.xml" value="0.4126984126984127" />
+        <entry key="..\:/LoginModule/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2275" />
+        <entry key="..\:/LoginModule/bzlogin/src/main/res/drawable/editex_bg.xml" value="0.2275" />
+        <entry key="..\:/LoginModule/bzlogin/src/main/res/drawable/ic_baseline_person.xml" value="0.2275" />
+        <entry key="..\:/LoginModule/bzlogin/src/main/res/drawable/ic_launcher_background.xml" value="0.2275" />
+        <entry key="..\:/LoginModule/bzlogin/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2275" />
+        <entry key="..\:/LoginModule/bzlogin/src/main/res/drawable/main_bg.xml" value="0.1675" />
+        <entry key="..\:/LoginModule/bzlogin/src/main/res/drawable/signin_bg.xml" value="0.1675" />
+        <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/activity_login.xml" value="0.12037037037037036" />
+        <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/activity_reset_password.xml" value="0.14" />
+        <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/fragment_passord_recovery.xml" value="0.33" />
+        <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/fragment_reset_password.xml" value="0.22" />
+        <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/fragment_sign_in.xml" value="0.25" />
+        <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/fragment_sign_up.xml" value="0.22" />
+        <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/loading_dialog.xml" value="0.12037037037037036" />
       </map>
     </option>
   </component>

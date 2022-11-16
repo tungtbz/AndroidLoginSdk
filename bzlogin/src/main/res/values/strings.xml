@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="sign_in_text">Sign In</string>
+    <string name="sign_up_text">Sign up</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="username_hint_text">Username or Email</string>
+    <string name="email_hint_text">Enter Email</string>
+    <string name="otp_text">OTP Code</string>
+    <string name="send_otp_text">Send OTP</string>
+    <string name="password_hint_text">Password</string>
+    <string name="new_password_hint_text">New Password</string>
+    <string name="confirmpassword_hint_text">Confirm Password</string>
+    <string name="confirm_new_password_hint_text">Confirm New Password</string>
+    <string name="forgetpas_text">Forgot password?</string>
+    <string name="or_signin_text">or sign in with</string>
+    <string name="term_text">I have read and agree with the Term and Privacy Policy</string>
+    <string name="donthaveaccount_text">Dont have an account? Sign Up</string>
+    <string name="alreadyhaveaccount_text">Already have an account? Sign In</string>
+
+    <string name="resetpass_text">Reset password</string>
+
+    <string name="google">GOOGLE</string>
+    <string name="facebook">FACEBOOK</string>
+    <string name="guest">GUEST</string>
+
+    <string name="user_url">https://api.rofi.games</string>
+</resources>

@@ -1,26 +1,8 @@
 <resources>
     <string name="app_name">LoginModule</string>
-    <string name="sign_in_text">Sign In</string>
-    <string name="sign_up_text">Sign up</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="username_hint_text">Username or Email</string>
-    <string name="password_hint_text">Password</string>
-    <string name="confirmpassword_hint_text">Confirm Password</string>
-    <string name="forgetpas_text">Forgot password?</string>
-    <string name="or_signin_text">or sign in with</string>
-    <string name="term_text">I have read and agree with the Term and Privacy Policy</string>
-    <string name="donthaveaccount_text">Dont have an account? Sign Up</string>
-    <string name="alreadyhaveaccount_text">Already have an account? Sign In</string>
-
-    <string name="google">GOOGLE</string>
-    <string name="facebook">FACEBOOK</string>
-    <string name="guest">GUEST</string>
-
-    <string name="user_url">https://api.rofi.games/api/pe</string>
-
-    <string name="facebook_app_id">509295011251112</string>
-    <string name="fb_login_protocol_scheme">fb509295011251112</string>
-    <string name="facebook_client_token">84c0156ef42dd9de5c66a8e1e736dc73</string>
+    <string name="facebook_app_id">1321596678410752</string>
+    <string name="fb_login_protocol_scheme">fb1321596678410752</string>
+    <string name="facebook_client_token">8be5a511b18b39d791dc02354d50a368</string>
+    <string name="default_web_client_id">79670645230-5q1c3cv3cmbtgg8mlsbnkb9p8po92skp.apps.googleusercontent.com</string>
 </resources>
