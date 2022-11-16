@@ -278,6 +278,52 @@ public class NetworkService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void ValidateOpt_ResetPassword(String otp, String account, String newPassword, BaseCallback sendOtpCallback) {
+        String url = mBaseUrl + BZURL.POST_RECOVERY_PASSWORD_VALIDATE_OPT;
+
+        try {
+            JSONObject requestData = new JSONObject()
+                    .put(Constants.ACCOUNT_STR, account)
+                    .put(Constants.NEWPASSWORD_STR, newPassword)
+                    .put(Constants.OTP_STR, otp);
+
+            JsonObjectRequestExtend request = new JsonObjectRequestExtend(Request.Method.POST, url, requestData,
+                    response -> {
+                        BaseResponse responseData = new Gson().fromJson(response.toString(), BaseResponse.class);
+                        if (responseData.code == Constants.API_STATUS_CODE_OK) {
+                            //back to login scene
+                            sendOtpCallback.onSuccess();
+                        } else {
+                            Log.d(TAG, "--> ValidateOpt_ResetPassword ->>> : " + responseData.message);
+                            sendOtpCallback.onError(responseData.message);
+                        }
+                    },
+                    error -> {
+                        Log.d(TAG, "--> ValidateOpt_ResetPassword --> error: " + error.networkResponse.statusCode);
+                        try {
+                            String jsonString =
+                                    new String(
+                                            error.networkResponse.data,
+                                            HttpHeaderParser.parseCharset(error.networkResponse.headers, "utf-8"));
+
+                            JSONArray jsonArray = new JSONArray(jsonString);
+                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+                            String message = jsonObject.getString(Constants.MESSAGE_STR);
+
+                            sendOtpCallback.onError(message);
+
+                        } catch (UnsupportedEncodingException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+            mRequestQueue.add(request);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 

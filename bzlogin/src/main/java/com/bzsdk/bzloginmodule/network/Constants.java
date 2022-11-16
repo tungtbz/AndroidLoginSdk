@@ -10,6 +10,8 @@ public class Constants {
     public static String CODE_TOKEN_STR = "codeToken";
     public static String ACCOUNT_STR = "account";
     public static String PASSWORD_STR = "password";
+    public static String NEWPASSWORD_STR = "newPassword";
+    public static String OTP_STR = "otp";
     public static String USERNAME_STR = "username";
     public static String EMAIL_STR = "email";
 
