@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.bzsdk.bzloginmodule.LoginActivity;
+import com.bzsdk.bzloginmodule.LoginService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        LoginService.getInstance().setGoogleWebClientId(getString(R.string.default_web_client_id));
 
         Button button = findViewById(R.id.btn_showLogin);
         button.setOnClickListener(view -> {

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="myButton">
+        <item name="backgroundTint">@color/com_facebook_blue</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">20dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="mySSS">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="myTextView">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="myTextInputLayout">
+        <item name="hintTextColor">@color/white</item>
+        <item name="boxStrokeColor">@color/white</item>
+    </style>
+
+    <style name="myTextInput">
+        <item name="android:textCursorDrawable">@drawable/edittext_cursor</item>
+    </style>
+
+</resources>

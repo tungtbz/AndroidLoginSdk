@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bzsdk.bzloginmodule">
-
     <application>
+        <activity
+            android:name="com.bzsdk.bzloginmodule.LoginActivity"
+            android:exported="false"
+            android:alwaysRetainTaskState="true"
+            android:screenOrientation="user"/>
+        <activity
+            android:name="com.bzsdk.bzloginmodule.ResetPasswordActivity"
+            android:exported="false"
+            android:screenOrientation="user"/>
 
     </application>
 

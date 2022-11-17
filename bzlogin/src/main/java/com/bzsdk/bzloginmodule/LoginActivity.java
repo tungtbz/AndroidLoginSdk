@@ -22,19 +22,20 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_login);
 
         mLoadingDialog = new LoadingDialog(LoginActivity.this);
+
+        ShowSignInFragment();
+        NetworkService.getInstance().Init(LoginActivity.this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        ShowSignInFragment();
-
-        NetworkService.getInstance().Init(LoginActivity.this);
     }
 
     public void ShowSignInFragment() {
@@ -59,11 +60,11 @@ public class LoginActivity extends AppCompatActivity {
         ft.commit();
     }
 
-    public void ShowLoadingDialog(String title) {
+    public void showLoadingDialog(String title) {
         mLoadingDialog.ShowDialog(title);
     }
 
-    public void HideLoadingDialog() {
+    public void hideLoadingDialog() {
         mLoadingDialog.HideDialog();
     }
 

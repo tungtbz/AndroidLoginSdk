@@ -5,17 +5,23 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.bzsdk.bzloginmodule.dialogs.LoadingDialog;
 import com.bzsdk.bzloginmodule.fragments.PasswordRecoveryFragment;
+import com.bzsdk.bzloginmodule.fragments.ResetPasswordCompleteFragment;
+import com.bzsdk.bzloginmodule.fragments.ResetPasswordFragment;
 
 public class ResetPasswordActivity extends AppCompatActivity {
 
     private Fragment mCurFragment;
     private LoadingDialog mLoadingDialog;
-
+    private ImageView topImage;
+    ImageView backBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +37,27 @@ public class ResetPasswordActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        backBtn = findViewById(R.id.back_btn);
+        backBtn.setOnClickListener(view -> {
+            ResetPasswordActivity.this.onBackPressed();
+        });
+
+        topImage = findViewById(R.id.imageView3);
 
         ShowFragment();
+        ResetPasswordActivity.this.getSupportFragmentManager().addFragmentOnAttachListener((fragmentManager, fragment) -> {
+
+            Log.d("FragmentOnAttach", "FragmentOnAttach: " + fragment.getClass().toString());
+
+            if(fragment.getClass() == PasswordRecoveryFragment.class){
+                topImage.setImageResource(R.drawable.ic_forgot_password);
+            } else if(fragment.getClass() == ResetPasswordFragment.class){
+                topImage.setImageResource(R.drawable.ic_opt);
+            } else if(fragment.getClass() == ResetPasswordCompleteFragment.class){
+                topImage.setImageResource(R.drawable.ic_success);
+                backBtn.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     public void ShowFragment() {
@@ -44,5 +69,17 @@ public class ResetPasswordActivity extends AppCompatActivity {
         // or ft.add(R.id.your_placeholder, new FooFragment());
         // Complete the changes added above
         ft.commit();
+    }
+
+    public void onChangeFragment(){
+
+    }
+
+    public void showLoadingDialog(String title) {
+        mLoadingDialog.ShowDialog(title);
+    }
+
+    public void hideLoadingDialog() {
+        mLoadingDialog.HideDialog();
     }
 }

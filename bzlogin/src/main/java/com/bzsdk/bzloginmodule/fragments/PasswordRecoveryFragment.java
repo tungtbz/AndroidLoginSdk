@@ -2,7 +2,9 @@ package com.bzsdk.bzloginmodule.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,8 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.bzsdk.bzloginmodule.LoginActivity;
+import com.bzsdk.bzloginmodule.LoginService;
 import com.bzsdk.bzloginmodule.R;
+import com.bzsdk.bzloginmodule.ResetPasswordActivity;
 import com.bzsdk.bzloginmodule.network.NetworkService;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -28,6 +31,12 @@ public class PasswordRecoveryFragment extends Fragment {
 
     Button sendOtpBtn;
     Pattern mEmailPattern;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,14 +72,14 @@ public class PasswordRecoveryFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 int textLength = editable.length();
-                if(textLength <= 0){
+                if (textLength <= 0) {
                     mUserNameInputLayout.setError(getString(R.string.edittext_not_empty_error));
                     sendOtpBtn.setClickable(false);
                     return;
                 }
 
                 Matcher mat = mEmailPattern.matcher(editable);
-                if(!mat.matches()){
+                if (!mat.matches()) {
                     mUserNameInputLayout.setError(getString(R.string.email_format_error));
                     sendOtpBtn.setClickable(false);
                     return;
@@ -84,28 +93,41 @@ public class PasswordRecoveryFragment extends Fragment {
         sendOtpBtn = getView().findViewById(R.id.send_opt_btn);
         sendOtpBtn.setOnClickListener(view -> {
 
-            LoginActivity activity = (LoginActivity)getActivity();
-            activity.ShowLoadingDialog(getString(R.string.sign_in_text));
+            ResetPasswordActivity activity = (ResetPasswordActivity) getActivity();
+            activity.showLoadingDialog(getString(R.string.loading_text));
 
             Editable email = mUserNameTextInputEditText.getText();
+
+            if(email.length() == 0){
+                mUserNameInputLayout.setError(getString(R.string.edittext_not_empty_error));
+                return;
+            }
 
             NetworkService.getInstance().SendOpt_ResetPassword(email.toString(), new NetworkService.BaseCallback() {
                 @Override
                 public void onSuccess() {
-                    activity.HideLoadingDialog();
+                    LoginService.getInstance().setCurrentAccount(email.toString());
+                    activity.hideLoadingDialog();
+                    OpenResetPasswordScene();
                 }
 
                 @Override
                 public void onError(String message) {
-                    Toast toast =  Toast.makeText(getActivity(), message, Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getActivity(), message, Toast.LENGTH_LONG);
                     toast.show();
-                    activity.HideLoadingDialog();
+                    activity.hideLoadingDialog();
                 }
             });
         });
     }
 
-    private void OpenResetPasswordScene(){
-
+    private void OpenResetPasswordScene() {
+        // Begin the transaction
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        // Replace the contents of the container with the new fragment
+        transaction.replace(R.id.fragment_container, new ResetPasswordFragment());
+        transaction.addToBackStack(null);
+        // Complete the changes added above
+        transaction.commit();
     }
 }

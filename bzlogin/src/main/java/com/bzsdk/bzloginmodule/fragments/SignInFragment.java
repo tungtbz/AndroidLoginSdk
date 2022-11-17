@@ -9,6 +9,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.IntentSenderRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -21,10 +22,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bzsdk.bzloginmodule.LoginActivity;
+import com.bzsdk.bzloginmodule.LoginService;
 import com.bzsdk.bzloginmodule.R;
 import com.bzsdk.bzloginmodule.ResetPasswordActivity;
 import com.bzsdk.bzloginmodule.network.NetworkService;
@@ -42,6 +45,7 @@ import com.google.android.gms.auth.api.identity.SignInCredential;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Arrays;
@@ -49,7 +53,6 @@ import java.util.Arrays;
 public class SignInFragment extends Fragment {
     TextInputEditText mUserNameEditText, mPasswordEditText;
     private String TAG = "~~~~~~[SignInFragment]";
-    private int REQ_ONE_TAP = 1212;
 
     public SignInFragment() {
         // Required empty public constructor
@@ -61,6 +64,39 @@ public class SignInFragment extends Fragment {
         InitViews();
         InitFb();
         InitGoogle();
+    }
+
+    ActivityResultLauncher<IntentSenderRequest> signinActivityResultLauncher;
+    ActivityResultLauncher<IntentSenderRequest> signupActivityResultLauncher;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        signinActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartIntentSenderForResult(), result -> {
+                    try {
+                        SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(result.getData());
+                        String idToken = credential.getGoogleIdToken();
+                        String username = credential.getId();
+                        Log.d(TAG, "gg login token: " + idToken);
+                        Log.d(TAG, "gg username: " + username);
+                        SignInWithGg(credential.getGoogleIdToken());
+                    } catch (ApiException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+
+        signupActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartIntentSenderForResult(), result -> {
+                    try {
+                        SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(result.getData());
+                        SignInWithGg(credential.getGoogleIdToken());
+                    } catch (ApiException e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 
     @Override
@@ -139,14 +175,14 @@ public class SignInFragment extends Fragment {
         String pass = mPasswordEditText.getText().toString();
 
         LoginActivity activity = (LoginActivity) getActivity();
-        activity.ShowLoadingDialog("Signin");
+        activity.showLoadingDialog("Signin");
 
         NetworkService.getInstance().SigninWithPass(userName, pass, new NetworkService.SignInCallback() {
             @Override
             public void onSuccess(String jsonStr) {
                 Toast toast = Toast.makeText(getActivity(), "Sign in successfully", Toast.LENGTH_LONG);
                 toast.show();
-                activity.HideLoadingDialog();
+                activity.hideLoadingDialog();
             }
 
             @Override
@@ -154,7 +190,7 @@ public class SignInFragment extends Fragment {
                 //show toast
                 Toast toast = Toast.makeText(getActivity(), message, Toast.LENGTH_LONG);
                 toast.show();
-                activity.HideLoadingDialog();
+                activity.hideLoadingDialog();
             }
         });
     }
@@ -165,13 +201,15 @@ public class SignInFragment extends Fragment {
     private boolean showOneTapUI = true;
 
     private void InitGoogle() {
+
+        Log.d(TAG, "InitGoogle: " + LoginService.getInstance().getGoogleWebClientId());
         showOneTapUI = true;
         oneTapClient = Identity.getSignInClient(getActivity());
         signInRequest = BeginSignInRequest.builder()
                 .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                         .setSupported(true)
                         // Your server's client ID, not your Android client ID.
-                        .setServerClientId(getActivity().getResources().getString(R.string.forgetpas_text))
+                        .setServerClientId(LoginService.getInstance().getGoogleWebClientId())
                         // Only show accounts previously used to sign in.
                         .setFilterByAuthorizedAccounts(true)
                         .build())
@@ -182,11 +220,12 @@ public class SignInFragment extends Fragment {
         signUpRequest = BeginSignInRequest.builder()
                 .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                         .setSupported(true)
-                        .setServerClientId(getActivity().getResources().getString(R.string.forgetpas_text))
-                        .setFilterByAuthorizedAccounts(false).build())
+                        .setServerClientId(LoginService.getInstance().getGoogleWebClientId())
+                        .setFilterByAuthorizedAccounts(false)
+                        .build())
                 .build();
 
-        Button ggSignIn = getView().findViewById(R.id.signin_google);
+        FloatingActionButton ggSignIn = getView().findViewById(R.id.google_btn);
 
         ggSignIn.setOnClickListener(view -> {
             displayGGSignIn();
@@ -202,21 +241,8 @@ public class SignInFragment extends Fragment {
 
                                 IntentSender intentSender = beginSignInResult.getPendingIntent().getIntentSender();
                                 IntentSenderRequest intentSenderRequest = (new IntentSenderRequest.Builder(intentSender)).build();
-                                ActivityResultLauncher<IntentSenderRequest> someActivityResultLauncher = registerForActivityResult(
-                                        new ActivityResultContracts.StartIntentSenderForResult(), result -> {
-                                            try {
-                                                SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(result.getData());
-                                                String idToken = credential.getGoogleIdToken();
-                                                String username = credential.getId();
-                                                Log.d(TAG, "gg login token: " + idToken);
-                                                Log.d(TAG, "gg username: " + username);
-                                                SignInWithGg(credential.getGoogleIdToken());
-                                            } catch (ApiException e) {
-                                                e.printStackTrace();
-                                            }
-                                        });
 
-                                someActivityResultLauncher.launch(intentSenderRequest, null);
+                                signinActivityResultLauncher.launch(intentSenderRequest, null);
                             }
                         })
                 .addOnFailureListener(getActivity(), new OnFailureListener() {
@@ -241,17 +267,7 @@ public class SignInFragment extends Fragment {
 
                                 IntentSender intentSender = beginSignInResult.getPendingIntent().getIntentSender();
                                 IntentSenderRequest intentSenderRequest = (new IntentSenderRequest.Builder(intentSender)).build();
-                                ActivityResultLauncher<IntentSenderRequest> someActivityResultLauncher = registerForActivityResult(
-                                        new ActivityResultContracts.StartIntentSenderForResult(), result -> {
-                                            try {
-                                                SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(result.getData());
-                                                SignInWithGg(credential.getGoogleIdToken());
-                                            } catch (ApiException e) {
-                                                e.printStackTrace();
-                                            }
-                                        });
-
-                                someActivityResultLauncher.launch(intentSenderRequest, null);
+                                signupActivityResultLauncher.launch(intentSenderRequest, null);
                             }
                         })
                 .addOnFailureListener(getActivity(), new OnFailureListener() {
@@ -271,21 +287,21 @@ public class SignInFragment extends Fragment {
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "onSuccess: " + loginResult.getAccessToken().getToken());
                 LoginActivity activity = (LoginActivity) getActivity();
-                activity.ShowLoadingDialog("Signin");
+                activity.showLoadingDialog("Signin");
 
                 NetworkService.getInstance().SignInWithFb(loginResult.getAccessToken().getToken(), new NetworkService.SignInCallback() {
                     @Override
                     public void onSuccess(String jsonStr) {
                         Toast toast = Toast.makeText(getActivity(), "Sign in successfully", Toast.LENGTH_LONG);
                         toast.show();
-                        activity.HideLoadingDialog();
+                        activity.hideLoadingDialog();
                     }
 
                     @Override
                     public void onError(String message) {
                         Toast toast = Toast.makeText(getActivity(), message, Toast.LENGTH_LONG);
                         toast.show();
-                        activity.HideLoadingDialog();
+                        activity.hideLoadingDialog();
                     }
                 });
 
@@ -302,7 +318,7 @@ public class SignInFragment extends Fragment {
             }
         });
 
-        Button fbLogin = getView().findViewById(R.id.signin_facebook);
+        FloatingActionButton fbLogin = getView().findViewById(R.id.facebook_btn);
         fbLogin.setOnClickListener(view -> {
             LoginManager.getInstance().logInWithReadPermissions(this, callbackManager, Arrays.asList("public_profile"));
         });
@@ -310,20 +326,20 @@ public class SignInFragment extends Fragment {
 
     private void SignInWithGg(String token) {
         LoginActivity activity = (LoginActivity) getActivity();
-        activity.ShowLoadingDialog("Signin");
+        activity.showLoadingDialog("Signin");
         NetworkService.getInstance().SignInWithGG(token, new NetworkService.SignInCallback() {
             @Override
             public void onSuccess(String jsonStr) {
                 Toast toast = Toast.makeText(getActivity(), "Sign in successfully", Toast.LENGTH_LONG);
                 toast.show();
-                activity.HideLoadingDialog();
+                activity.hideLoadingDialog();
             }
 
             @Override
             public void onError(String message) {
                 Toast toast = Toast.makeText(getActivity(), message, Toast.LENGTH_LONG);
                 toast.show();
-                activity.HideLoadingDialog();
+                activity.hideLoadingDialog();
             }
         });
     }

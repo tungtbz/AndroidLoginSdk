@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,10 +24,12 @@
                 android:maxWidth="350dp"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
+                style="@style/myTextInputLayout"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/otp_edittext"
+                    style="@style/myTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="emailAddress"
@@ -35,12 +38,12 @@
                     android:drawablePadding="10dp"
                     android:hint="@string/username_hint_text"
                     android:inputType="textEmailAddress"
-                    android:singleLine="true"
-                    android:textColorHint="#616161" />
+                    android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editTextPasswordLayout"
+                style="@style/myTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -49,6 +52,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/pass_edittext"
+                    style="@style/myTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
@@ -66,10 +70,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:maxWidth="350dp"
+                style="@style/myTextInputLayout"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/confirmpass_edittext"
+                    style="@style/myTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
@@ -83,39 +89,47 @@
 
         </LinearLayout>
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/_term"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:layout_below="@id/usernamepass_layout"
+            android:layout_centerHorizontal="true">
 
-            android:layout_centerHorizontal="true"
-            android:paddingTop="20dp">
             <CheckBox
                 android:id="@+id/checkbox_term"
-                android:layout_width="30dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"/>
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:checked="true"
+                android:layout_centerVertical="true"
+                android:outlineSpotShadowColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txt_term"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/checkbox_term"
-                android:gravity="center_horizontal"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal|left"
                 android:text="@string/term_text"
-                android:textSize="18dp" />
-        </RelativeLayout>
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/checkbox_term"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
             android:id="@+id/signup_btn"
+            style="@style/myButton"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/_term"
             android:layout_centerInParent="true"
             android:layout_marginTop="10dp"
-            android:text="@string/sign_up_text"
-            android:textSize="18dp" />
+            android:text="@string/sign_up_text" />
 
         <TextView
             android:id="@+id/txt_backto_signin"
@@ -123,6 +137,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/signup_btn"
             android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
             android:gravity="center_horizontal"
             android:text="@string/alreadyhaveaccount_text"
             android:textSize="18dp" />

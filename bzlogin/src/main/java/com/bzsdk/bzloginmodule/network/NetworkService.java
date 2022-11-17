@@ -250,12 +250,12 @@ public class NetworkService {
                             //back to login scene
                             sendOtpCallback.onSuccess();
                         } else {
-                            Log.d(TAG, "--> SignupByPassword ->>> : " + responseData.message);
+                            Log.d(TAG, "--> SendOpt_ResetPassword ->>> : " + responseData.message);
                             sendOtpCallback.onError(responseData.message);
                         }
                     },
                     error -> {
-                        Log.d(TAG, "--> SignupByPassword --> error: " + error.networkResponse.statusCode);
+                        Log.d(TAG, "--> SendOpt_ResetPassword --> error: " + error.networkResponse.statusCode);
                         try {
                             String jsonString =
                                     new String(
@@ -280,9 +280,10 @@ public class NetworkService {
         }
     }
 
-    public void ValidateOpt_ResetPassword(String otp, String account, String newPassword, BaseCallback sendOtpCallback) {
+    public void ValidateOpt_ResetPassword(String account, String otp, String newPassword, BaseCallback sendOtpCallback) {
         String url = mBaseUrl + BZURL.POST_RECOVERY_PASSWORD_VALIDATE_OPT;
-
+        Log.d(TAG, "--> ValidateOpt_ResetPassword --> URL: " + url);
+        Log.d(TAG, "--> ValidateOpt_ResetPassword --> otp: " + otp);
         try {
             JSONObject requestData = new JSONObject()
                     .put(Constants.ACCOUNT_STR, account)
@@ -324,7 +325,6 @@ public class NetworkService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     private void CreateRequestQueue(File rootDirectory) {

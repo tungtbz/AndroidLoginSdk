@@ -60,7 +60,6 @@ public class SignUpFragment extends Fragment {
         String emailRegex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
                 + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         mEmailPattern = Pattern.compile(emailRegex);
-
     }
 
     @Override
@@ -215,7 +214,7 @@ public class SignUpFragment extends Fragment {
         Matcher mat = mEmailPattern.matcher(userName);
 
         LoginActivity activity = (LoginActivity)getActivity();
-        activity.ShowLoadingDialog(getString(R.string.sign_in_text));
+        activity.showLoadingDialog(getString(R.string.sign_in_text));
 
         NetworkService.getInstance().SignupByPassword(userName, pass, mat.matches() ? userName : null, new NetworkService.SignUpCallback() {
             @Override
@@ -223,7 +222,7 @@ public class SignUpFragment extends Fragment {
                 Toast toast =  Toast.makeText(getActivity(), "Sign up successfully", Toast.LENGTH_LONG);
                 toast.show();
                 OpenSignIn();
-                activity.HideLoadingDialog();
+                activity.hideLoadingDialog();
             }
 
             @Override
@@ -231,7 +230,7 @@ public class SignUpFragment extends Fragment {
                 //show toast
                Toast toast =  Toast.makeText(getActivity(), message, Toast.LENGTH_LONG);
                toast.show();
-                activity.HideLoadingDialog();
+                activity.hideLoadingDialog();
             }
         });
     }

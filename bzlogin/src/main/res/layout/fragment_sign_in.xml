@@ -1,126 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.bzsdk.bzloginmodule.fragments.SignInFragment">
 
-    <LinearLayout
-        android:id="@+id/usernamepass_layout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editTextTextEmailAddress"
+        <LinearLayout
+            android:id="@+id/usernamepass_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent">
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/otp_edittext"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextTextEmailAddress"
+                style="@style/myTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_baseline_person"
-                android:background="@android:color/transparent"
-                android:hint="@string/username_hint_text"
-                android:drawablePadding="10dp"
-                android:autofillHints="emailAddress"
-                android:inputType="textEmailAddress"
-                android:singleLine="true"
-                android:textColorHint="#616161" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:background="@android:color/transparent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editTextPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/otp_edittext"
+                    style="@style/myTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="emailAddress"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_baseline_person"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/username_hint_text"
+                    android:inputType="textEmailAddress"
+                    android:singleLine="true"
+                    android:textColorHint="#616161" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password_edittext"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextPassword"
+                style="@style/myTextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:drawableStart="@drawable/ic_baseline_security"
-                android:drawablePadding="10dp"
-                android:hint="@string/password_hint_text"
-                android:inputType="textPassword"
-                android:singleLine="true" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_edittext"
+                    style="@style/myTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_baseline_security"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/password_hint_text"
+                    android:inputType="textPassword"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/forgotpasstxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/forgetpas_text"
+                android:textColor="@color/browser_actions_bg_grey"
+                android:textColorLink="@android:color/darker_gray"
+                android:textSize="18sp"
+
+                />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/signin_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/usernamepass_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/signin_bg"
+            android:minWidth="150dp"
+            android:text="@string/sign_in_text"
+            app:layout_constraintEnd_toEndOf="@+id/usernamepass_layout"
+            app:layout_constraintStart_toStartOf="@+id/usernamepass_layout"
+            app:layout_constraintTop_toBottomOf="@+id/usernamepass_layout" />
 
         <TextView
-            android:id="@+id/forgotpasstxt"
+            android:id="@+id/open_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/forgetpas_text"
-            android:textSize="18sp" />
-    </LinearLayout>
+            android:layout_below="@id/signin_btn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:text="@string/donthaveaccount_text"
+            android:textColor="@color/white"
+            android:textSize="19sp"
 
-    <Button
-        android:id="@+id/signin_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/usernamepass_layout"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/signin_bg"
-        android:minWidth="150dp"
-        android:text="@string/sign_in_text" />
+            app:layout_constraintStart_toStartOf="@+id/signin_btn"
+            app:layout_constraintTop_toBottomOf="@+id/signin_btn" />
 
-    <TextView
-        android:id="@+id/open_signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/signin_btn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="@string/donthaveaccount_text"
-        android:textSize="19sp" />
-
-    <TextView
-        android:id="@+id/txt_or"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/bottom_buttons"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="@string/or_signin_text"
-        android:textSize="18dp" />
-
-    <LinearLayout
-        android:id="@+id/bottom_buttons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentBottom="true"
-        >
-        <Button
-            android:id="@+id/signin_google"
+        <TextView
+            android:id="@+id/txt_or"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/google"
-            android:layout_marginEnd="10dp"
-            />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:text="@string/or_signin_text"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/open_signup" />
 
-        <Button
-            android:id="@+id/signin_facebook"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottom_buttons"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/facebook"/>
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_or">
 
-        <Button
-            android:id="@+id/signin_guest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/guest"
-            android:minWidth="100dp"
-            android:maxWidth="150dp"
-            android:layout_marginStart="10dp" />
-    </LinearLayout>
-</RelativeLayout>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/google_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="35dp"
+                android:src="@drawable/ic_google"
+                android:tint="@color/white"
+
+                android:tintMode="multiply"
+                app:backgroundTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/facebook_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="35dp"
+                android:src="@drawable/ic_facebook"
+                android:tint="@color/white"
+                android:tintMode="multiply"
+                app:backgroundTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/google_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/guest_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="35dp"
+                android:src="@drawable/ic_anonymity"
+                android:tint="@color/white"
+                android:tintMode="multiply"
+                app:backgroundTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/google_btn"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
