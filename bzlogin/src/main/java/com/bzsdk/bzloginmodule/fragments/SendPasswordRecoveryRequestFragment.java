@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.bzsdk.bzloginmodule.BuildConfig;
 import com.bzsdk.bzloginmodule.LoginService;
 import com.bzsdk.bzloginmodule.R;
 import com.bzsdk.bzloginmodule.ResetPasswordActivity;
@@ -25,7 +26,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class PasswordRecoveryFragment extends Fragment {
+public class SendPasswordRecoveryRequestFragment extends Fragment {
     TextInputLayout mUserNameInputLayout;
     TextInputEditText mUserNameTextInputEditText;
 
@@ -93,6 +94,11 @@ public class PasswordRecoveryFragment extends Fragment {
         sendOtpBtn = getView().findViewById(R.id.send_opt_btn);
         sendOtpBtn.setOnClickListener(view -> {
 
+            if (BuildConfig.BUILD_TYPE == "debug") {
+                OpenResetPasswordScene();
+                return;
+            }
+
             ResetPasswordActivity activity = (ResetPasswordActivity) getActivity();
             activity.showLoadingDialog(getString(R.string.loading_text));
 
@@ -125,7 +131,7 @@ public class PasswordRecoveryFragment extends Fragment {
         // Begin the transaction
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         // Replace the contents of the container with the new fragment
-        transaction.replace(R.id.fragment_container, new ResetPasswordFragment());
+        transaction.replace(R.id.fragment_container, new VerifyOtpAndResetPasswordFragment());
         transaction.addToBackStack(null);
         // Complete the changes added above
         transaction.commit();

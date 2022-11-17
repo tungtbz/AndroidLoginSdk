@@ -160,28 +160,30 @@ public class NetworkService {
                         if (response.has(Constants.ACCESS_TOKEN_STR)) {
                             signinEvent.onSuccess(response.toString());
                         } else {
-                            LoginResponse responseData = new Gson().fromJson(response.toString(), LoginResponse.class);
+//                            LoginResponse responseData = new Gson().fromJson(response.toString(), LoginResponse.class);
+//                            signinEvent.onError(responseData.message);
 
-                            signinEvent.onError(responseData.message);
+                            signinEvent.onError("SignIn Failed!");
                         }
                     },
                     error -> {
                         Log.d(TAG, "--> SignupByPassword --> error: " + error.networkResponse.statusCode);
-                        try {
-                            String jsonString =
-                                    new String(
-                                            error.networkResponse.data,
-                                            HttpHeaderParser.parseCharset(error.networkResponse.headers, "utf-8"));
-
-                            JSONArray jsonArray = new JSONArray(jsonString);
-                            JSONObject jsonObject = jsonArray.getJSONObject(0);
-                            String message = jsonObject.getString(Constants.MESSAGE_STR);
-
-                            signinEvent.onError(message);
-
-                        } catch (UnsupportedEncodingException | JSONException e) {
-                            e.printStackTrace();
-                        }
+                        signinEvent.onError("SignIn Failed!");
+//                        try {
+//                            String jsonString =
+//                                    new String(
+//                                            error.networkResponse.data,
+//                                            HttpHeaderParser.parseCharset(error.networkResponse.headers, "utf-8"));
+//
+//                            JSONArray jsonArray = new JSONArray(jsonString);
+//                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+//                            String message = jsonObject.getString(Constants.MESSAGE_STR);
+//
+//                            signinEvent.onError(message);
+//
+//                        } catch (UnsupportedEncodingException | JSONException e) {
+//                            e.printStackTrace();
+//                        }
                     });
 
             mRequestQueue.add(request);
@@ -205,28 +207,29 @@ public class NetworkService {
                         if (response.has(Constants.ACCESS_TOKEN_STR)) {
                             signInCallback.onSuccess(response.toString());
                         } else {
-                            LoginResponse responseData = new Gson().fromJson(response.toString(), LoginResponse.class);
-
-                            signInCallback.onError(responseData.message);
+//                            LoginResponse responseData = new Gson().fromJson(response.toString(), LoginResponse.class);
+                            signInCallback.onError("SignIn Failed!");
                         }
                     },
                     error -> {
                         Log.d(TAG, "--> SignupByPassword --> error: " + error.networkResponse.statusCode);
-                        try {
-                            String jsonString =
-                                    new String(
-                                            error.networkResponse.data,
-                                            HttpHeaderParser.parseCharset(error.networkResponse.headers, "utf-8"));
+                        signInCallback.onError("SignIn Failed!");
 
-                            JSONArray jsonArray = new JSONArray(jsonString);
-                            JSONObject jsonObject = jsonArray.getJSONObject(0);
-                            String message = jsonObject.getString(Constants.MESSAGE_STR);
-
-                            signInCallback.onError(message);
-
-                        } catch (UnsupportedEncodingException | JSONException e) {
-                            e.printStackTrace();
-                        }
+//                        try {
+//                            String jsonString =
+//                                    new String(
+//                                            error.networkResponse.data,
+//                                            HttpHeaderParser.parseCharset(error.networkResponse.headers, "utf-8"));
+//
+//                            JSONArray jsonArray = new JSONArray(jsonString);
+//                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+//                            String message = jsonObject.getString(Constants.MESSAGE_STR);
+//
+//                            signInCallback.onError(message);
+//
+//                        } catch (UnsupportedEncodingException | JSONException e) {
+//                            e.printStackTrace();
+//                        }
                     });
 
             mRequestQueue.add(request);
@@ -256,21 +259,23 @@ public class NetworkService {
                     },
                     error -> {
                         Log.d(TAG, "--> SendOpt_ResetPassword --> error: " + error.networkResponse.statusCode);
-                        try {
-                            String jsonString =
-                                    new String(
-                                            error.networkResponse.data,
-                                            HttpHeaderParser.parseCharset(error.networkResponse.headers, "utf-8"));
+                        sendOtpCallback.onError("Request Opt Error!");
 
-                            JSONArray jsonArray = new JSONArray(jsonString);
-                            JSONObject jsonObject = jsonArray.getJSONObject(0);
-                            String message = jsonObject.getString(Constants.MESSAGE_STR);
-
-                            sendOtpCallback.onError(message);
-
-                        } catch (UnsupportedEncodingException | JSONException e) {
-                            e.printStackTrace();
-                        }
+//                        try {
+//                            String jsonString =
+//                                    new String(
+//                                            error.networkResponse.data,
+//                                            HttpHeaderParser.parseCharset(error.networkResponse.headers, "utf-8"));
+//
+//                            JSONArray jsonArray = new JSONArray(jsonString);
+//                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+//                            String message = jsonObject.getString(Constants.MESSAGE_STR);
+//
+//                            sendOtpCallback.onError(message);
+//
+//                        } catch (UnsupportedEncodingException | JSONException e) {
+//                            e.printStackTrace();
+//                        }
                     });
 
             mRequestQueue.add(request);
@@ -303,21 +308,22 @@ public class NetworkService {
                     },
                     error -> {
                         Log.d(TAG, "--> ValidateOpt_ResetPassword --> error: " + error.networkResponse.statusCode);
-                        try {
-                            String jsonString =
-                                    new String(
-                                            error.networkResponse.data,
-                                            HttpHeaderParser.parseCharset(error.networkResponse.headers, "utf-8"));
-
-                            JSONArray jsonArray = new JSONArray(jsonString);
-                            JSONObject jsonObject = jsonArray.getJSONObject(0);
-                            String message = jsonObject.getString(Constants.MESSAGE_STR);
-
-                            sendOtpCallback.onError(message);
-
-                        } catch (UnsupportedEncodingException | JSONException e) {
-                            e.printStackTrace();
-                        }
+                        sendOtpCallback.onError("ValidateOpt Error!");
+//                        try {
+//                            String jsonString =
+//                                    new String(
+//                                            error.networkResponse.data,
+//                                            HttpHeaderParser.parseCharset(error.networkResponse.headers, "utf-8"));
+//
+//                            JSONArray jsonArray = new JSONArray(jsonString);
+//                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+//                            String message = jsonObject.getString(Constants.MESSAGE_STR);
+//
+//                            sendOtpCallback.onError(message);
+//
+//                        } catch (UnsupportedEncodingException | JSONException e) {
+//                            e.printStackTrace();
+//                        }
                     });
 
             mRequestQueue.add(request);

@@ -28,9 +28,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mLoadingDialog = new LoadingDialog(LoginActivity.this);
-
-        ShowSignInFragment();
         NetworkService.getInstance().Init(LoginActivity.this);
+
+        if(savedInstanceState == null){
+            ShowSignInFragment();
+        }
+
     }
 
     @Override

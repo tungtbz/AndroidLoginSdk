@@ -173,9 +173,20 @@ public class SignInFragment extends Fragment {
     private void callSignIn() {
         String userName = mUserNameEditText.getText().toString();
         String pass = mPasswordEditText.getText().toString();
+        if (userName.length() <= 0) {
+            Toast toast = Toast.makeText(getActivity(), getString(R.string.username_min_length_error), Toast.LENGTH_LONG);
+            toast.show();
+            return;
+        }
+        if (pass.length() <= 0) {
+            Toast toast = Toast.makeText(getActivity(), getString(R.string.password_min_length_error), Toast.LENGTH_LONG);
+            toast.show();
+            return;
+        }
 
         LoginActivity activity = (LoginActivity) getActivity();
         activity.showLoadingDialog("Signin");
+
 
         NetworkService.getInstance().SigninWithPass(userName, pass, new NetworkService.SignInCallback() {
             @Override
