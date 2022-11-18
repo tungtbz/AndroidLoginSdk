@@ -83,7 +83,7 @@
             android:layout_below="@+id/usernamepass_layout"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-            android:background="@drawable/signin_bg"
+            style="@style/myButton"
             android:minWidth="150dp"
             android:text="@string/sign_in_text"
             app:layout_constraintEnd_toEndOf="@+id/usernamepass_layout"

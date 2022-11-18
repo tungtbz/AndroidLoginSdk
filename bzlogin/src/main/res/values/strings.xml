@@ -33,4 +33,5 @@
     <string name="password_not_match_error">Password does not match</string>
 
     <string name="user_url">https://api.rofi.games</string>
+    <string name="term_url">https://rofi.games/privacy-policy/</string>
 </resources>

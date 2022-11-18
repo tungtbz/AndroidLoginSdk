@@ -5,7 +5,7 @@ plugins {
 android {
     signingConfigs {
         debug {
-            storeFile file('C:\\WaterPuzzle\\Key stores\\puzzle.keystore')
+            storeFile file('C:\\FPro\\WaterSort\\Key stores\\puzzle.keystore')
             storePassword 'BuPCXSXhtSvNE9ut'
             keyAlias 'puzzle'
             keyPassword 'BuPCXSXhtSvNE9ut'

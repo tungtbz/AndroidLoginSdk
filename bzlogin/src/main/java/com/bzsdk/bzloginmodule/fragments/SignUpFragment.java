@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bzsdk.bzloginmodule.LoginActivity;
+import com.bzsdk.bzloginmodule.dialogs.TermAndPrivacyDialog;
 import com.bzsdk.bzloginmodule.network.NetworkService;
 import com.bzsdk.bzloginmodule.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -40,7 +41,7 @@ public class SignUpFragment extends Fragment {
     TextInputEditText mPasswordTextInputEditText;
     TextInputEditText mConfirmPasswordTextInputEditText;
     Pattern mEmailPattern;
-
+    private TermAndPrivacyDialog termAndPrivacyDialog;
     public SignUpFragment() {
 
     }
@@ -78,12 +79,15 @@ public class SignUpFragment extends Fragment {
         TextView termTextView = getView().findViewById(R.id.txt_term);
 
         String termText = getActivity().getResources().getString(R.string.term_text);
+
+        termAndPrivacyDialog = new TermAndPrivacyDialog(getActivity());
+
+
         SpannableString fpSpannableString = new SpannableString(termText);
         ClickableSpan fpClickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
-                getActivity().startActivity(browserIntent);
+                termAndPrivacyDialog.showDialog(getString(R.string.term_url));
             }
         };
 

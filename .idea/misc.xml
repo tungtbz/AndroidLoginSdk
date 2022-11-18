@@ -35,13 +35,14 @@
         <entry key="..\:/LoginModule/bzlogin/src/main/res/layout-land/fragment_sign_in.xml" value="0.3373015873015873" />
         <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/activity_login.xml" value="0.12037037037037036" />
         <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/activity_reset_password.xml" value="0.33" />
+        <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/dialog_term_privacy_layout.xml" value="0.33" />
         <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/fragment_passord_recovery.xml" value="0.33" />
         <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/fragment_password_recovery.xml" value="0.5" />
         <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/fragment_reset_password.xml" value="0.22" />
         <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/fragment_reset_password_complete.xml" value="0.3423913043478261" />
         <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/fragment_sign_in.xml" value="0.23333333333333334" />
-        <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/fragment_sign_up.xml" value="0.67" />
-        <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/loading_dialog.xml" value="0.12037037037037036" />
+        <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/fragment_sign_up.xml" value="0.33" />
+        <entry key="..\:/LoginModule/bzlogin/src/main/res/layout/loading_dialog.xml" value="0.33" />
       </map>
     </option>
   </component>
