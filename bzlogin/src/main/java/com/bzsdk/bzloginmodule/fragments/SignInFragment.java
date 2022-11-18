@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ import com.bzsdk.bzloginmodule.LoginService;
 import com.bzsdk.bzloginmodule.R;
 import com.bzsdk.bzloginmodule.ResetPasswordActivity;
 import com.bzsdk.bzloginmodule.network.NetworkService;
+import com.bzsdk.bzloginmodule.ui.CircleButton;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -51,7 +53,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.Arrays;
 
 public class SignInFragment extends Fragment {
-    TextInputEditText mUserNameEditText, mPasswordEditText;
+//    TextInputEditText mUserNameEditText, mPasswordEditText;
+    EditText mUserNameEditText, mPasswordEditText;
     private String TAG = "~~~~~~[SignInFragment]";
 
     public SignInFragment() {
@@ -100,8 +103,7 @@ public class SignInFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_sign_in, container, false);
     }
@@ -113,8 +115,8 @@ public class SignInFragment extends Fragment {
     }
 
     private void InitViews() {
-        mUserNameEditText = getView().findViewById(R.id.otp_edittext);
-        mPasswordEditText = getView().findViewById(R.id.password_edittext);
+        mUserNameEditText = getView().findViewById(R.id.edit_text_username);
+        mPasswordEditText = getView().findViewById(R.id.edit_text_password);
 
         TextView forgotPasswordTextView = getView().findViewById(R.id.forgotpasstxt);
         String forgetPassText = getActivity().getResources().getString(R.string.forgetpas_text);
@@ -236,7 +238,7 @@ public class SignInFragment extends Fragment {
                         .build())
                 .build();
 
-        FloatingActionButton ggSignIn = getView().findViewById(R.id.google_btn);
+        CircleButton ggSignIn = getView().findViewById(R.id.google_btn);
 
         ggSignIn.setOnClickListener(view -> {
             displayGGSignIn();
@@ -296,7 +298,9 @@ public class SignInFragment extends Fragment {
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "onSuccess: " + loginResult.getAccessToken().getToken());
+//                Log.d(TAG, "onSuccess: " + loginResult.getAccessToken().getToken());
+                Log.d(TAG, "onSuccess: " + loginResult.getAccessToken());
+
                 LoginActivity activity = (LoginActivity) getActivity();
                 activity.showLoadingDialog("Signin");
 
@@ -329,7 +333,7 @@ public class SignInFragment extends Fragment {
             }
         });
 
-        FloatingActionButton fbLogin = getView().findViewById(R.id.facebook_btn);
+        CircleButton fbLogin = getView().findViewById(R.id.facebook_btn);
         fbLogin.setOnClickListener(view -> {
             LoginManager.getInstance().logInWithReadPermissions(this, callbackManager, Arrays.asList("public_profile"));
         });

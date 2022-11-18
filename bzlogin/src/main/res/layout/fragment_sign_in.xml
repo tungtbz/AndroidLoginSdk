@@ -20,48 +20,70 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editTextTextEmailAddress"
-                style="@style/myTextInputLayout"
+            <EditText
+                android:id="@+id/edit_text_username"
+                style="@style/myTextInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent">
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/custom_ic_email"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="@string/username_hint_text"
+                android:inputType="textEmailAddress" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/otp_edittext"
-                    style="@style/myTextInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="emailAddress"
-                    android:background="@android:color/transparent"
-                    android:drawableStart="@drawable/ic_baseline_person"
-                    android:drawablePadding="10dp"
-                    android:hint="@string/username_hint_text"
-                    android:inputType="textEmailAddress"
-                    android:singleLine="true"
-                    android:textColorHint="#616161" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editTextPassword"
-                style="@style/myTextInputLayout"
+            <EditText
+                android:id="@+id/edit_text_password"
+                style="@style/myTextInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/custom_ic_password"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="@string/password_hint_text"
+                android:inputType="textPassword"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/password_edittext"
-                    style="@style/myTextInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:drawableStart="@drawable/ic_baseline_security"
-                    android:drawablePadding="10dp"
-                    android:hint="@string/password_hint_text"
-                    android:inputType="textPassword"
-                    android:singleLine="true" />
+            <!--            <com.google.android.material.textfield.TextInputLayout-->
+            <!--                android:id="@+id/editTextTextEmailAddress"-->
+            <!--                style="@style/myTextInputLayout"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:background="@android:color/transparent">-->
 
-            </com.google.android.material.textfield.TextInputLayout>
+            <!--                <com.google.android.material.textfield.TextInputEditText-->
+            <!--                    android:id="@+id/otp_edittext"-->
+            <!--                    style="@style/myTextInput"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:autofillHints="emailAddress"-->
+            <!--                    android:background="@android:color/transparent"-->
+            <!--                    android:drawableStart="@drawable/ic_baseline_person"-->
+            <!--                    android:drawablePadding="10dp"-->
+            <!--                    android:hint="@string/username_hint_text"-->
+            <!--                    android:inputType="textEmailAddress"-->
+            <!--                    android:singleLine="true"-->
+            <!--                    android:textColorHint="#616161" />-->
+            <!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+            <!--            <com.google.android.material.textfield.TextInputLayout-->
+            <!--                android:id="@+id/editTextPassword"-->
+            <!--                style="@style/myTextInputLayout"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="10dp">-->
+
+            <!--                <com.google.android.material.textfield.TextInputEditText-->
+            <!--                    android:id="@+id/password_edittext"-->
+            <!--                    style="@style/myTextInput"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:background="@android:color/transparent"-->
+            <!--                    android:drawableStart="@drawable/ic_baseline_security"-->
+            <!--                    android:drawablePadding="10dp"-->
+            <!--                    android:hint="@string/password_hint_text"-->
+            <!--                    android:inputType="textPassword"-->
+            <!--                    android:singleLine="true" />-->
+
+            <!--            </com.google.android.material.textfield.TextInputLayout>-->
 
             <TextView
                 android:id="@+id/forgotpasstxt"
@@ -71,20 +93,15 @@
                 android:text="@string/forgetpas_text"
                 android:textColor="@color/browser_actions_bg_grey"
                 android:textColorLink="@android:color/darker_gray"
-                android:textSize="18sp"
-
-                />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <Button
             android:id="@+id/signin_btn"
+            style="@style/myButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/usernamepass_layout"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-            style="@style/myButton"
-            android:minWidth="150dp"
             android:text="@string/sign_in_text"
             app:layout_constraintEnd_toEndOf="@+id/usernamepass_layout"
             app:layout_constraintStart_toStartOf="@+id/usernamepass_layout"
@@ -123,55 +140,91 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
             android:paddingBottom="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_or">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/google_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:elevation="35dp"
-                android:src="@drawable/ic_google"
-                android:tint="@color/white"
+<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                android:id="@+id/google_btn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:elevation="35dp"-->
+<!--                android:src="@drawable/ic_google"-->
+<!--                android:tint="@color/white"-->
 
-                android:tintMode="multiply"
-                app:backgroundTint="@color/white"
+<!--                android:tintMode="multiply"-->
+<!--                app:backgroundTint="@color/white"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <com.bzsdk.bzloginmodule.ui.CircleButton
+                android:id="@+id/google_btn"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:src="@drawable/ic_google"
+                app:cb_color="@android:color/white"
+                app:cb_pressedRingWidth="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <com.bzsdk.bzloginmodule.ui.CircleButton
                 android:id="@+id/facebook_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:elevation="35dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:src="@drawable/ic_facebook"
-                android:tint="@color/white"
-                android:tintMode="multiply"
-                app:backgroundTint="@color/white"
+                app:cb_color="@android:color/white"
+                app:cb_pressedRingWidth="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/google_btn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <com.bzsdk.bzloginmodule.ui.CircleButton
                 android:id="@+id/guest_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:elevation="35dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:src="@drawable/ic_anonymity"
-                android:tint="@color/white"
-                android:tintMode="multiply"
-                app:backgroundTint="@color/white"
+                app:cb_color="@android:color/white"
+                app:cb_pressedRingWidth="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/google_btn"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+            <!--                android:id="@+id/facebook_btn"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:elevation="35dp"-->
+            <!--                android:src="@drawable/ic_facebook"-->
+            <!--                android:tint="@color/white"-->
+            <!--                android:tintMode="multiply"-->
+            <!--                app:backgroundTint="@color/white"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintEnd_toStartOf="@+id/google_btn"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                android:id="@+id/guest_btn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:elevation="35dp"-->
+<!--                android:src="@drawable/ic_anonymity"-->
+<!--                android:tint="@color/white"-->
+<!--                android:tintMode="multiply"-->
+<!--                app:backgroundTint="@color/white"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/google_btn"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

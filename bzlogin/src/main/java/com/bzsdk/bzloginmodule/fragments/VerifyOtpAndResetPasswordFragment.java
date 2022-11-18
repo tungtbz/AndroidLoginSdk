@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.bzsdk.bzloginmodule.BuildConfig;
+//import com.bzsdk.bzloginmodule.BuildConfig;
 import com.bzsdk.bzloginmodule.LoginService;
 import com.bzsdk.bzloginmodule.R;
 import com.bzsdk.bzloginmodule.ResetPasswordActivity;
@@ -43,10 +43,10 @@ public class VerifyOtpAndResetPasswordFragment extends Fragment {
         Button resetpassBtn =  getView().findViewById(R.id.reset_pass_btn);
         resetpassBtn.setOnClickListener(view -> {
 
-            if (BuildConfig.BUILD_TYPE == "debug") {
-                openResetPassSuccessScene();
-                return;
-            }
+//            if (BuildConfig.BUILD_TYPE == "debug") {
+//                openResetPassSuccessScene();
+//                return;
+//            }
 
             String currentAccount = LoginService.getInstance().getCurrentAccount();
             String otp = mOtpEditText.getText().toString();
