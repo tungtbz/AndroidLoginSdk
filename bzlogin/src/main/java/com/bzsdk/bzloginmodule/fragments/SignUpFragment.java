@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,15 +35,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignUpFragment extends Fragment {
-
-
-    TextInputLayout mUserNameInputLayout, mPassInputLayout, mConfirmPassInputLayout;
-
-    TextInputEditText mUserNameTextInputEditText;
-    TextInputEditText mPasswordTextInputEditText;
-    TextInputEditText mConfirmPasswordTextInputEditText;
+    CheckBox termCheckbox;
+    EditText mUserNameTextInputEditText, mPasswordTextInputEditText, mConfirmPasswordTextInputEditText;
     Pattern mEmailPattern;
     private TermAndPrivacyDialog termAndPrivacyDialog;
+
     public SignUpFragment() {
 
     }
@@ -70,6 +68,8 @@ public class SignUpFragment extends Fragment {
     }
 
     private void SetupView() {
+
+        termCheckbox = getView().findViewById(R.id.checkbox_term);
 
         Button signUp = getView().findViewById(R.id.signup_btn);
         signUp.setOnClickListener(view -> {
@@ -114,116 +114,53 @@ public class SignUpFragment extends Fragment {
         signinTextView.setMovementMethod(LinkMovementMethod.getInstance());
         signinTextView.setHighlightColor(Color.TRANSPARENT);
 
-        mUserNameInputLayout = getView().findViewById(R.id.editTextTextEmailAddressLayout);
+        mUserNameTextInputEditText = getView().findViewById(R.id.edit_text_username);
 
-        mPassInputLayout = getView().findViewById(R.id.editTextPasswordLayout);
-        mConfirmPassInputLayout = getView().findViewById(R.id.editTextConfirmPasswordLayout);
+        mPasswordTextInputEditText = getView().findViewById(R.id.edit_text_password);
 
+        mConfirmPasswordTextInputEditText = getView().findViewById(R.id.edit_text_confirm_password);
 
-        mUserNameTextInputEditText = getView().findViewById(R.id.otp_edittext);
-        mUserNameTextInputEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                int length = editable.length();
-                if (length == 0) {
-                    mUserNameInputLayout.setError(getString(R.string.edittext_not_empty_error));
-                    return;
-                }
-
-                if(length < 6) {
-                    mUserNameInputLayout.setError(getString(R.string.username_min_length_error));
-                    return;
-                }
-                mUserNameInputLayout.setError(null);
-            }
-        });
-
-
-
-        mPasswordTextInputEditText = getView().findViewById(R.id.pass_edittext);
-        mPasswordTextInputEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                int length = editable.length();
-                if (length == 0) {
-                    mPassInputLayout.setError(getString(R.string.edittext_not_empty_error));
-                    return;
-                }
-
-                if(length < 6) {
-                    mPassInputLayout.setError(getString(R.string.password_min_length_error));
-                    return;
-                }
-                mPassInputLayout.setError(null);
-            }
-        });
-
-        mConfirmPasswordTextInputEditText = getView().findViewById(R.id.confirmpass_edittext);
-        mConfirmPasswordTextInputEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.length() == 0) {
-                    mConfirmPassInputLayout.setError(getString(R.string.edittext_not_empty_error));
-                    return;
-                }
-                Editable pass = mPasswordTextInputEditText.getText();
-                if (pass.length() > 0) {
-                    if (!pass.toString().equals(editable.toString())) {
-                        mConfirmPassInputLayout.setError(getString(R.string.password_not_match_error));
-
-                        return;
-                    }
-                }
-                mConfirmPassInputLayout.setError(null);
-
-            }
-        });
     }
 
     private void CallSignUp() {
-
         String userName = mUserNameTextInputEditText.getText().toString();
         String pass = mPasswordTextInputEditText.getText().toString();
+        String passConfirm = mConfirmPasswordTextInputEditText.getText().toString();
+
+        //check username
+        if (userName.length() == 0) {
+            Toast toast = Toast.makeText(getActivity(), getString(R.string.username_min_length_error), Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+
+        if (pass.length() == 0) {
+            Toast toast = Toast.makeText(getActivity(), getString(R.string.password_min_length_error), Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+
+        if (!pass.equals(passConfirm)) {
+            Toast toast = Toast.makeText(getActivity(), getString(R.string.password_not_match_error), Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+
+        //check agree term
+        if (!termCheckbox.isChecked()) {
+            Toast toast = Toast.makeText(getActivity(), getString(R.string.message_agree_term), Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
 
         Matcher mat = mEmailPattern.matcher(userName);
-
-        LoginActivity activity = (LoginActivity)getActivity();
+        LoginActivity activity = (LoginActivity) getActivity();
         activity.showLoadingDialog(getString(R.string.sign_in_text));
 
         NetworkService.getInstance().SignupByPassword(userName, pass, mat.matches() ? userName : null, new NetworkService.SignUpCallback() {
             @Override
             public void onSuccess() {
-                Toast toast =  Toast.makeText(getActivity(), "Sign up successfully", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(getActivity(), "Sign up successfully", Toast.LENGTH_LONG);
                 toast.show();
                 OpenSignIn();
                 activity.hideLoadingDialog();
@@ -232,8 +169,8 @@ public class SignUpFragment extends Fragment {
             @Override
             public void onError(String message) {
                 //show toast
-               Toast toast =  Toast.makeText(getActivity(), message, Toast.LENGTH_LONG);
-               toast.show();
+                Toast toast = Toast.makeText(getActivity(), message, Toast.LENGTH_LONG);
+                toast.show();
                 activity.hideLoadingDialog();
             }
         });

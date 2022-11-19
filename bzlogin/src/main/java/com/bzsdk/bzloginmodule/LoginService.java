@@ -13,11 +13,11 @@ public class LoginService {
         return instance;
     }
 
-    public void setGoogleWebClientId(String id){
+    public void setGoogleWebClientId(String id) {
         googleWebClientId = id;
     }
 
-    public String getGoogleWebClientId(){
+    public String getGoogleWebClientId() {
         return googleWebClientId;
     }
 
@@ -37,11 +37,16 @@ public class LoginService {
         return currentToken;
     }
 
-    public void SetSignInListener(SignInListener listener) {
+    public void setSignInListener(SignInListener listener) {
         signInListener = listener;
     }
 
+
+    public void DispatchOnLogin(String data) {
+        if (signInListener != null) signInListener.onSignInSuccess(data);
+    }
+
     public interface SignInListener {
-        void onSignInSuccess();
+        void onSignInSuccess(String data);
     }
 }

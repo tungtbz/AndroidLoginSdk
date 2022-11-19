@@ -53,9 +53,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.Arrays;
 
 public class SignInFragment extends Fragment {
-//    TextInputEditText mUserNameEditText, mPasswordEditText;
+    //    TextInputEditText mUserNameEditText, mPasswordEditText;
     EditText mUserNameEditText, mPasswordEditText;
     private String TAG = "~~~~~~[SignInFragment]";
+    private CircleButton mFacebookBtn, mGoogleBtn, mGuestBtn;
 
     public SignInFragment() {
         // Required empty public constructor
@@ -114,7 +115,24 @@ public class SignInFragment extends Fragment {
         getActivity().startActivity(myIntent);
     }
 
+    private void setButtonScale() {
+        float scale = 0.6f;
+        mFacebookBtn = getView().findViewById(R.id.facebook_btn);
+        mFacebookBtn.setScaleX(scale);
+        mFacebookBtn.setScaleY(scale);
+
+        mGoogleBtn = getView().findViewById(R.id.google_btn);
+        mGoogleBtn.setScaleX(scale);
+        mGoogleBtn.setScaleY(scale);
+
+        mGuestBtn = getView().findViewById(R.id.guest_btn);
+        mGuestBtn.setScaleX(scale);
+        mGuestBtn.setScaleY(scale);
+    }
+
     private void InitViews() {
+        setButtonScale();
+
         mUserNameEditText = getView().findViewById(R.id.edit_text_username);
         mPasswordEditText = getView().findViewById(R.id.edit_text_password);
 
@@ -193,9 +211,10 @@ public class SignInFragment extends Fragment {
         NetworkService.getInstance().SigninWithPass(userName, pass, new NetworkService.SignInCallback() {
             @Override
             public void onSuccess(String jsonStr) {
+                Log.d(TAG, "onSuccess: " + jsonStr);
                 Toast toast = Toast.makeText(getActivity(), "Sign in successfully", Toast.LENGTH_LONG);
                 toast.show();
-                activity.hideLoadingDialog();
+                activity.onLoginSuccess(jsonStr);
             }
 
             @Override
@@ -309,7 +328,7 @@ public class SignInFragment extends Fragment {
                     public void onSuccess(String jsonStr) {
                         Toast toast = Toast.makeText(getActivity(), "Sign in successfully", Toast.LENGTH_LONG);
                         toast.show();
-                        activity.hideLoadingDialog();
+                        activity.onLoginSuccess(jsonStr);
                     }
 
                     @Override
@@ -347,7 +366,7 @@ public class SignInFragment extends Fragment {
             public void onSuccess(String jsonStr) {
                 Toast toast = Toast.makeText(getActivity(), "Sign in successfully", Toast.LENGTH_LONG);
                 toast.show();
-                activity.hideLoadingDialog();
+                activity.onLoginSuccess(jsonStr);
             }
 
             @Override

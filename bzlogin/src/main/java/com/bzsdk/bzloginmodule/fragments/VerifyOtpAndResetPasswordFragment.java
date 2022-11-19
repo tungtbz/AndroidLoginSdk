@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 //import com.bzsdk.bzloginmodule.BuildConfig;
@@ -22,8 +23,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class VerifyOtpAndResetPasswordFragment extends Fragment {
-    TextInputLayout mOtpInputLayout, mPasswordLayout, mConfirmPasswordLayout;
-    TextInputEditText mOtpEditText, mPasswordEditText, mPassConfirmEditText;
+    EditText mOtpEditText, mPasswordEditText, mPassConfirmEditText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,16 +42,29 @@ public class VerifyOtpAndResetPasswordFragment extends Fragment {
 
         Button resetpassBtn =  getView().findViewById(R.id.reset_pass_btn);
         resetpassBtn.setOnClickListener(view -> {
+            String otp = mOtpEditText.getText().toString();
+            String pass = mPasswordEditText.getText().toString();
+            String passConfirm = mPassConfirmEditText.getText().toString();
 
-//            if (BuildConfig.BUILD_TYPE == "debug") {
-//                openResetPassSuccessScene();
-//                return;
-//            }
+            if(otp.length() != 6){
+                Toast toast = Toast.makeText(getActivity(), getString(R.string.otp_not_empty_error), Toast.LENGTH_SHORT);
+                toast.show();
+                return;
+            }
+
+            if(pass.length() == 0 || pass.length() < 6){
+                Toast toast = Toast.makeText(getActivity(), getString(R.string.password_min_length_error), Toast.LENGTH_SHORT);
+                toast.show();
+                return;
+            }
+
+            if(!passConfirm.equals(pass)){
+                Toast toast = Toast.makeText(getActivity(), getString(R.string.password_not_match_error), Toast.LENGTH_SHORT);
+                toast.show();
+                return;
+            }
 
             String currentAccount = LoginService.getInstance().getCurrentAccount();
-            String otp = mOtpEditText.getText().toString();
-            String pass = mPassConfirmEditText.getText().toString();
-
             ResetPasswordActivity activity = (ResetPasswordActivity) getActivity();
             activity.showLoadingDialog(getString(R.string.loading_text));
 
@@ -72,71 +85,10 @@ public class VerifyOtpAndResetPasswordFragment extends Fragment {
             });
         });
 
-        mOtpInputLayout = getView().findViewById(R.id.otp_text_layout);
-        mPasswordLayout = getView().findViewById(R.id.editTextPasswordLayout);
-        mConfirmPasswordLayout = getView().findViewById(R.id.editTextConfirmPasswordLayout);
-
         mOtpEditText = getView().findViewById(R.id.otp_edittext);
+        mPasswordEditText = getView().findViewById(R.id.edit_text_password);
+        mPassConfirmEditText = getView().findViewById(R.id.edit_text_confirm_password);
 
-        mPasswordEditText = getView().findViewById(R.id.pass_edittext);
-        mPasswordEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                int length = editable.length();
-                if (length == 0) {
-                    mPasswordLayout.setError(getString(R.string.edittext_not_empty_error));
-                    return;
-                }
-
-                if (length < 6) {
-                    mPasswordLayout.setError(getString(R.string.password_min_length_error));
-                    return;
-                }
-                mPasswordLayout.setError(null);
-            }
-        });
-
-
-        mPassConfirmEditText = getView().findViewById(R.id.confirmpass_edittext);
-        mPassConfirmEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.length() == 0) {
-                    mConfirmPasswordLayout.setError(getString(R.string.edittext_not_empty_error));
-                    return;
-                }
-                Editable pass = mPasswordEditText.getText();
-                if (pass.length() > 0) {
-                    if (!pass.toString().equals(editable.toString())) {
-                        mConfirmPasswordLayout.setError(getString(R.string.password_not_match_error));
-
-                        return;
-                    }
-                }
-                mConfirmPasswordLayout.setError(null);
-
-            }
-        });
     }
 
     private void openResetPassSuccessScene(){

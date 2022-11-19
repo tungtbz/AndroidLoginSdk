@@ -7,7 +7,7 @@ public class Constants {
     public static String HTTP_STATUS_CODE_STR = "http_status_code";
     public static String MESSAGE_STR = "message";
 
-    public static String CODE_TOKEN_STR = "codeToken";
+    public static String CODE_TOKEN_STR = "oauthToken";
     public static String ACCOUNT_STR = "account";
     public static String PASSWORD_STR = "password";
     public static String NEWPASSWORD_STR = "newPassword";

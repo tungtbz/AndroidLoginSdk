@@ -41,7 +41,7 @@ public class LoginActivity extends FragmentActivity {
             LoginActivity.this.onBackPressed();
         });
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             ShowSignInFragment();
         }
 
@@ -80,6 +80,12 @@ public class LoginActivity extends FragmentActivity {
 
     public void hideLoadingDialog() {
         mLoadingDialog.HideDialog();
+    }
+
+    public void onLoginSuccess(String data) {
+        mLoadingDialog.HideDialog();
+        finish();
+        LoginService.getInstance().DispatchOnLogin(data);
     }
 
 }

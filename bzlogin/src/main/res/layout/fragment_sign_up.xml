@@ -18,74 +18,39 @@
             android:layout_centerHorizontal="true"
             android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editTextTextEmailAddressLayout"
+            <EditText
+                android:id="@+id/edit_text_username"
+                style="@style/myTextInput"
                 android:layout_width="match_parent"
-                android:maxWidth="350dp"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                style="@style/myTextInputLayout"
-                app:errorEnabled="true">
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/custom_ic_email"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="@string/username_hint_text"
+                android:inputType="textEmailAddress" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/otp_edittext"
-                    style="@style/myTextInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="emailAddress"
-                    android:background="@android:color/transparent"
-                    android:drawableStart="@drawable/ic_baseline_person"
-                    android:drawablePadding="10dp"
-                    android:hint="@string/username_hint_text"
-                    android:inputType="textEmailAddress"
-                    android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editTextPasswordLayout"
-                style="@style/myTextInputLayout"
+            <EditText
+                android:id="@+id/edit_text_password"
+                style="@style/myTextInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:maxWidth="350dp"
-                app:errorEnabled="true">
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/custom_ic_password"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="@string/password_hint_text"
+                android:inputType="textPassword"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/pass_edittext"
-                    style="@style/myTextInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:drawableStart="@drawable/ic_baseline_security"
-                    android:drawablePadding="10dp"
-                    android:hint="@string/password_hint_text"
-                    android:inputType="textPassword"
-                    android:singleLine="true" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editTextConfirmPasswordLayout"
+            <EditText
+                android:id="@+id/edit_text_confirm_password"
+                style="@style/myTextInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:maxWidth="350dp"
-                style="@style/myTextInputLayout"
-                app:errorEnabled="true">
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/custom_ic_password"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="@string/confirmpassword_hint_text"
+                android:inputType="textPassword"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/confirmpass_edittext"
-                    style="@style/myTextInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:drawableStart="@drawable/ic_baseline_security"
-                    android:drawablePadding="10dp"
-                    android:hint="@string/confirmpassword_hint_text"
-                    android:inputType="textPassword"
-                    android:singleLine="true" />
-
-            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 

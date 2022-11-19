@@ -8,11 +8,11 @@
             android:name="com.bzsdk.bzloginmodule.LoginActivity"
             android:alwaysRetainTaskState="true"
             android:exported="false"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.bzsdk.bzloginmodule.ResetPasswordActivity"
             android:exported="false"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="landscape" />
 
     </application>
 

@@ -31,6 +31,8 @@
     <string name="username_min_length_error">The length of \'Username\' must be at least 6 characters</string>
     <string name="password_min_length_error">The length of \'Password\' must be at least 6 characters</string>
     <string name="password_not_match_error">Password does not match</string>
+    <string name="otp_not_empty_error">OTP is invalid</string>
+    <string name="message_agree_term">You must agree to the terms and Privacy Policy</string>
 
     <string name="user_url">https://api.rofi.games</string>
     <string name="term_url">https://rofi.games/privacy-policy/</string>

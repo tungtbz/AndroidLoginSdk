@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 //import com.bzsdk.bzloginmodule.BuildConfig;
@@ -27,8 +28,8 @@ import java.util.regex.Pattern;
 
 
 public class SendPasswordRecoveryRequestFragment extends Fragment {
-    TextInputLayout mUserNameInputLayout;
-    TextInputEditText mUserNameTextInputEditText;
+
+    EditText mUserNameTextInputEditText;
 
     Button sendOtpBtn;
     Pattern mEmailPattern;
@@ -56,48 +57,11 @@ public class SendPasswordRecoveryRequestFragment extends Fragment {
     }
 
     private void InitView() {
-        mUserNameInputLayout = getView().findViewById(R.id.editTextTextEmailAddress);
 
-        mUserNameTextInputEditText = getView().findViewById(R.id.otp_edittext);
-        mUserNameTextInputEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                int textLength = editable.length();
-                if (textLength <= 0) {
-                    mUserNameInputLayout.setError(getString(R.string.edittext_not_empty_error));
-                    sendOtpBtn.setClickable(false);
-                    return;
-                }
-
-                Matcher mat = mEmailPattern.matcher(editable);
-                if (!mat.matches()) {
-                    mUserNameInputLayout.setError(getString(R.string.email_format_error));
-                    sendOtpBtn.setClickable(false);
-                    return;
-                }
-
-                mUserNameInputLayout.setError(null);
-                sendOtpBtn.setClickable(true);
-            }
-        });
+        mUserNameTextInputEditText = getView().findViewById(R.id.edit_text_username);
 
         sendOtpBtn = getView().findViewById(R.id.send_opt_btn);
         sendOtpBtn.setOnClickListener(view -> {
-
-//            if (BuildConfig.BUILD_TYPE == "debug") {
-//                OpenResetPasswordScene();
-//                return;
-//            }
 
             ResetPasswordActivity activity = (ResetPasswordActivity) getActivity();
             activity.showLoadingDialog(getString(R.string.loading_text));
@@ -105,7 +69,8 @@ public class SendPasswordRecoveryRequestFragment extends Fragment {
             Editable email = mUserNameTextInputEditText.getText();
 
             if(email.length() == 0){
-                mUserNameInputLayout.setError(getString(R.string.edittext_not_empty_error));
+                Toast toast = Toast.makeText(getActivity(), getString(R.string.edittext_not_empty_error), Toast.LENGTH_LONG);
+                toast.show();
                 return;
             }
 

@@ -116,27 +116,29 @@ public class NetworkService {
                         if (response.has(Constants.ACCESS_TOKEN_STR)) {
                             signinEvent.onSuccess(response.toString());
                         } else {
-                            LoginResponse responseData = new Gson().fromJson(response.toString(), LoginResponse.class);
-                            signinEvent.onError(responseData.message);
+//                            LoginResponse responseData = new Gson().fromJson(response.toString(), LoginResponse.class);
+//                            signinEvent.onError(responseData.message);
+                            signinEvent.onError("SignIn Failed!");
                         }
                     },
                     error -> {
                         Log.d(TAG, "--> SignupByPassword --> error: " + error.networkResponse.statusCode);
-                        try {
-                            String jsonString =
-                                    new String(
-                                            error.networkResponse.data,
-                                            HttpHeaderParser.parseCharset(error.networkResponse.headers, "utf-8"));
-
-                            JSONArray jsonArray = new JSONArray(jsonString);
-                            JSONObject jsonObject = jsonArray.getJSONObject(0);
-                            String message = jsonObject.getString(Constants.MESSAGE_STR);
-
-                            signinEvent.onError(message);
-
-                        } catch (UnsupportedEncodingException | JSONException e) {
-                            e.printStackTrace();
-                        }
+                        signinEvent.onError("SignIn Failed!");
+//                        try {
+//                            String jsonString =
+//                                    new String(
+//                                            error.networkResponse.data,
+//                                            HttpHeaderParser.parseCharset(error.networkResponse.headers, "utf-8"));
+//
+//                            JSONArray jsonArray = new JSONArray(jsonString);
+//                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+//                            String message = jsonObject.getString(Constants.MESSAGE_STR);
+//
+//                            signinEvent.onError(message);
+//
+//                        } catch (UnsupportedEncodingException | JSONException e) {
+//                            e.printStackTrace();
+//                        }
                     });
 
             mRequestQueue.add(request);
