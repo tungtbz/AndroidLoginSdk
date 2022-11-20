@@ -4,18 +4,34 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidProjects/bzsdk/app/src/main/res/layout/activity_main.xml" value="0.16041666666666668" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/drawable/cb_selector.xml" value="0.2005" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/drawable/custom_ic_email.xml" value="0.2015" />
         <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/drawable/custom_ic_password.xml" value="0.385" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/drawable/editex_bg.xml" value="0.2405" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/drawable/edittext_cursor.xml" value="0.2305" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/drawable/ic_baseline_arrow_back.xml" value="0.2015" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/drawable/ic_baseline_person.xml" value="0.2305" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/drawable/ic_baseline_person_focused.xml" value="0.2015" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/drawable/ic_baseline_security.xml" value="0.2015" />
         <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/drawable/ic_baseline_security_forcused.xml" value="0.385" />
         <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/drawable/ic_baseline_security_forcused_1.xml" value="0.385" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/drawable/ic_launcher_background.xml" value="0.2305" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2305" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/drawable/main_bg.xml" value="0.315" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/drawable/signin_bg.xml" value="0.2225" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/layout-land/activity_login.xml" value="0.328042328042328" />
         <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/layout-land/activity_reset_password.xml" value="0.328042328042328" />
         <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/layout-land/fragment_reset_password.xml" value="0.22470238095238096" />
         <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/layout-land/fragment_sign_in.xml" value="0.33" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/layout/activity_login.xml" value="0.3875" />
         <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/layout/activity_reset_password.xml" value="0.38315217391304346" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/layout/dialog_term_privacy_layout.xml" value="0.19375" />
         <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/layout/fragment_password_recovery.xml" value="0.33" />
-        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/layout/fragment_reset_password.xml" value="0.67" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/layout/fragment_reset_password.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/layout/fragment_reset_password_complete.xml" value="0.38315217391304346" />
         <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/layout/fragment_sign_in.xml" value="0.38315217391304346" />
-        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/layout/fragment_sign_up.xml" value="0.2807971014492754" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/layout/fragment_sign_up.xml" value="0.33" />
+        <entry key="..\:/AndroidProjects/bzsdk/bzlogin/src/main/res/layout/loading_dialog.xml" value="0.34556159420289856" />
         <entry key="..\:/LoginModule/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2015" />
         <entry key="..\:/LoginModule/app/src/main/res/drawable/editex_bg.xml" value="0.1855" />
         <entry key="..\:/LoginModule/app/src/main/res/drawable/ic_baseline_person.xml" value="0.172" />

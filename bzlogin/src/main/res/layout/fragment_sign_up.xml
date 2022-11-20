@@ -24,6 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/custom_ic_email"
+
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="@string/username_hint_text"
@@ -67,7 +68,7 @@
                 android:layout_height="50dp"
                 android:checked="true"
                 android:layout_centerVertical="true"
-                android:outlineSpotShadowColor="@color/black"
+                android:buttonTint="@color/myColorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -78,8 +79,9 @@
                 android:layout_height="0dp"
                 android:gravity="center_vertical|left"
                 android:text="@string/term_text"
-                android:textSize="16sp"
-                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:textColorLink="@color/myColorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/checkbox_term"
@@ -90,10 +92,9 @@
             android:id="@+id/signup_btn"
             style="@style/myButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_below="@id/_term"
             android:layout_centerInParent="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:text="@string/sign_up_text" />
 
         <TextView
@@ -102,10 +103,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/signup_btn"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/white"
             android:gravity="center_horizontal"
             android:text="@string/alreadyhaveaccount_text"
-            android:textSize="18dp" />
+            android:textColor="@color/black"
+            android:textColorLink="@color/myColorPrimary"
+            android:textSize="14dp" />
     </RelativeLayout>
 
 </androidx.core.widget.NestedScrollView>

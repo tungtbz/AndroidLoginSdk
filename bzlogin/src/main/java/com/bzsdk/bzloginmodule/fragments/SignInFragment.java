@@ -116,7 +116,7 @@ public class SignInFragment extends Fragment {
     }
 
     private void setButtonScale() {
-        float scale = 0.6f;
+        float scale = 0.5f;
         mFacebookBtn = getView().findViewById(R.id.facebook_btn);
         mFacebookBtn.setScaleX(scale);
         mFacebookBtn.setScaleY(scale);
@@ -243,7 +243,7 @@ public class SignInFragment extends Fragment {
                         // Your server's client ID, not your Android client ID.
                         .setServerClientId(LoginService.getInstance().getGoogleWebClientId())
                         // Only show accounts previously used to sign in.
-                        .setFilterByAuthorizedAccounts(true)
+                        .setFilterByAuthorizedAccounts(false)
                         .build())
                 // Automatically sign in when exactly one credential is retrieved.
                 .setAutoSelectEnabled(true)

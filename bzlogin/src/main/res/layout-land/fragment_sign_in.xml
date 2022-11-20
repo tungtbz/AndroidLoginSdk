@@ -50,19 +50,19 @@
                     android:id="@+id/forgotpasstxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:text="@string/forgetpas_text"
-                    android:textColor="@color/browser_actions_bg_grey"
-                    android:textColorLink="@android:color/darker_gray"
-                    android:textSize="18sp" />
+                    android:textColor="@color/black"
+                    android:textColorLink="@color/myColorPrimary"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/signin_btn"
                 style="@style/myButton"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="5dp"
                 android:text="@string/sign_in_text"
                 app:layout_constraintEnd_toEndOf="@+id/usernamepass_layout"
                 app:layout_constraintStart_toStartOf="@+id/usernamepass_layout"
@@ -76,9 +76,9 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
                 android:text="@string/donthaveaccount_text"
-                android:textColor="@color/white"
-                android:textSize="19sp"
-
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:textColorLink="@color/myColorPrimary"
                 app:layout_constraintStart_toStartOf="@+id/signin_btn"
                 app:layout_constraintTop_toBottomOf="@+id/signin_btn" />
 
@@ -87,10 +87,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/or_signin_text"
-                android:textColor="@color/white"
-                android:textSize="18dp"
+                android:textSize="14dp"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/open_signup" />
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:paddingBottom="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -131,6 +131,7 @@
                     app:cb_pressedRingWidth="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/google_btn"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -144,6 +145,7 @@
                     app:cb_pressedRingWidth="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/google_btn"
                     app:layout_constraintTop_toTopOf="parent" />
 

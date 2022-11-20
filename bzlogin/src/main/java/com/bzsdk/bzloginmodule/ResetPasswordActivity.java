@@ -3,6 +3,7 @@ package com.bzsdk.bzloginmodule;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
@@ -17,7 +18,7 @@ import com.bzsdk.bzloginmodule.fragments.SendPasswordRecoveryRequestFragment;
 import com.bzsdk.bzloginmodule.fragments.ResetPasswordCompleteFragment;
 import com.bzsdk.bzloginmodule.fragments.VerifyOtpAndResetPasswordFragment;
 
-public class ResetPasswordActivity extends AppCompatActivity {
+public class ResetPasswordActivity extends FragmentActivity {
 
     private Fragment mCurFragment;
     private LoadingDialog mLoadingDialog;
@@ -28,8 +29,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null) actionBar.hide();
+
 
         setContentView(R.layout.activity_reset_password);
 
