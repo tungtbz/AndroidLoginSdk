@@ -11,6 +11,12 @@ android {
             keyAlias 'puzzle'
             keyPassword 'BuPCXSXhtSvNE9ut'
         }
+        release{
+            storeFile file('C:\\FPro\\WaterSort\\Key stores\\puzzle.keystore')
+            storePassword 'BuPCXSXhtSvNE9ut'
+            keyAlias 'puzzle'
+            keyPassword 'BuPCXSXhtSvNE9ut'
+        }
     }
     compileSdk 32
 
