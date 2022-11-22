@@ -1,6 +1,7 @@
 package com.bzsdk.bzloginmodule.ui;
 
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -12,7 +13,8 @@ import android.widget.ImageView;
 
 import com.bzsdk.bzloginmodule.R;
 
-public class CircleButton extends androidx.appcompat.widget.AppCompatImageView {
+@SuppressLint("AppCompatCustomView")
+public class CircleButton extends ImageView {
 
     private static final int PRESSED_COLOR_LIGHTUP = 255 / 25;
     private static final int PRESSED_RING_ALPHA = 75;

@@ -166,7 +166,7 @@ public class SignInFragment extends Fragment {
 
             }
         };
-        signupSpannableString.setSpan(signupClickableSpan, 22, 29, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        signupSpannableString.setSpan(signupClickableSpan, signupText.length() - 7, signupText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         signupTextView.setText(signupSpannableString);
         signupTextView.setMovementMethod(LinkMovementMethod.getInstance());
