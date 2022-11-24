@@ -47,10 +47,9 @@ import com.google.android.gms.auth.api.identity.SignInCredential;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 public class SignInFragment extends Fragment {
     //    TextInputEditText mUserNameEditText, mPasswordEditText;
@@ -175,6 +174,29 @@ public class SignInFragment extends Fragment {
         Button signinBtn = getView().findViewById(R.id.signin_btn);
         signinBtn.setOnClickListener(view -> {
             callSignIn();
+        });
+
+        mGuestBtn = getView().findViewById(R.id.guest_btn);
+        mGuestBtn.setOnClickListener(view -> {
+            LoginActivity activity = (LoginActivity) getActivity();
+            activity.showLoadingDialog("Signin");
+
+            String uniqueID = UUID.randomUUID().toString();
+            NetworkService.getInstance().SignInByGuest(uniqueID, new NetworkService.SignInCallback() {
+                @Override
+                public void onSuccess(String jsonStr) {
+                    Toast toast = Toast.makeText(getActivity(), "Sign in successfully", Toast.LENGTH_LONG);
+                    toast.show();
+                    activity.onLoginSuccess(jsonStr);
+                }
+
+                @Override
+                public void onError(String message) {
+                    Toast toast = Toast.makeText(getActivity(), message, Toast.LENGTH_LONG);
+                    toast.show();
+                    activity.hideLoadingDialog();
+                }
+            });
         });
     }
 

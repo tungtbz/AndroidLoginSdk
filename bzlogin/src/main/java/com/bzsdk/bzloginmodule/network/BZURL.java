@@ -13,6 +13,7 @@ public class BZURL {
     public static final String POST_LOGIN_BY_WALLET = "/api/v1/users/auth/wallet";
     public static final String POST_LOGIN_BY_GOOGLE = "/api/v1/users/auth/google";
     public static final String POST_LOGIN_BY_FACEBOOK = "/api/v1/users/auth/facebook";
+    public static final String POST_LOGIN_BY_GUEST = "/api/v1/users/auth/guest";
 
     public static final String POST_RECOVERY_PASSWORD_REQUEST_OPT = "/api/v1/users/recovery-password/request-otp";
     public static final String POST_RECOVERY_PASSWORD_VALIDATE_OPT = "/api/v1/users/recovery-password/validate-otp";

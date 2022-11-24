@@ -2,11 +2,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="sign_in_text">Sign In</string>
     <string name="sign_up_text">Sign up</string>
-    <string name="loading_text">Loading</string>
+    <string translatable="false" name="loading_text">Loading</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string translatable="false" name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="username_hint_text">Username or Email</string>
+    <string translatable="false" name="username_hint_text">Username or Email</string>
     <string name="email_hint_text">Enter Email</string>
     <string name="otp_text">OTP Code</string>
     <string name="send_otp_text">Send OTP</string>
@@ -22,9 +22,9 @@
 
     <string name="resetpass_text">Reset password</string>
 
-    <string name="google">GOOGLE</string>
-    <string name="facebook">FACEBOOK</string>
-    <string name="guest">GUEST</string>
+    <string translatable="false" name="google">GOOGLE</string>
+    <string translatable="false" name="facebook">FACEBOOK</string>
+    <string translatable="false" name="guest">GUEST</string>
 
     <string name="email_format_error">This is not valid email</string>
     <string name="edittext_not_empty_error">This field cannot be empty</string>
@@ -34,6 +34,6 @@
     <string name="otp_not_empty_error">OTP is invalid</string>
     <string name="message_agree_term">You must agree to the terms and Privacy Policy</string>
 
-    <string name="user_url">https://api.rofi.games</string>
-    <string name="term_url">https://rofi.games/privacy-policy/</string>
+    <string translatable="false" name="user_url">https://api.rofi.games</string>
+    <string translatable="false" name="term_url">https://rofi.games/privacy-policy/</string>
 </resources>

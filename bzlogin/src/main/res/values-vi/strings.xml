@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sign_in_text">Đăng Nhập</string>
+    <string name="sign_up_text">Đăng Ký</string>
+    <string name="email_hint_text">Nhập Email</string>
+    <string name="otp_text">Mã OTP</string>
+    <string name="send_otp_text">Gửi Mã OTP</string>
+    <string name="password_hint_text">Mật Khẩu</string>
+    <string name="new_password_hint_text">Mật Khẩu Mới</string>
+
+    <string name="confirmpassword_hint_text">Nhập Lại Mật Khẩu</string>
+    <string name="confirm_new_password_hint_text">Nhập Lại Mật Khẩu Mới</string>
+    <string name="forgetpas_text">Quên mật khẩu?</string>
+    <string name="or_signin_text">hoặc đăng nhập bằng</string>
+
+    <string name="email_format_error">This is not valid email</string>
+    <string name="edittext_not_empty_error">Không được để trống</string>
+    <string name="username_min_length_error">UserName có độ dài tối thiểu là 6 ký tự</string>
+    <string name="password_min_length_error">Password có độ dài tối thiểu là 6 ký tự</string>
+
+    <string name="password_not_match_error">Mật khẩu không trùng khớp</string>
+    <string name="otp_not_empty_error">OTP không đúng</string>
+    <string name="message_agree_term">Bạn phải đồng ý với Điều Khoản Sử Dụng</string>
+
+    <string name="term_text">Tôi đã đọc và đồng ý với Điều Khoản Sử Dụng</string>
+    <string name="donthaveaccount_text">Chưa có tài khoản? Đăng ký</string>
+    <string name="alreadyhaveaccount_text">Đã có tài khoản? Đăng nhập</string>
+
+    <string name="resetpass_text">Đặt lại mật khẩu</string>
+</resources>

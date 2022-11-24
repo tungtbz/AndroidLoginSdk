@@ -241,6 +241,34 @@ public class NetworkService {
         }
     }
 
+    public void SignInByGuest(String uid, SignInCallback signInCallback){
+        String url = mBaseUrl + BZURL.POST_LOGIN_BY_GUEST;
+
+        try {
+            JSONObject requestData = new JSONObject()
+                    .put(Constants.GUEST_ID_STR, uid);
+
+            JsonObjectRequestExtend request = new JsonObjectRequestExtend(Request.Method.POST, url, requestData,
+                    response -> {
+                        if (response.has(Constants.ACCESS_TOKEN_STR)) {
+                            signInCallback.onSuccess(response.toString());
+                        } else {
+//                            LoginResponse responseData = new Gson().fromJson(response.toString(), LoginResponse.class);
+                            signInCallback.onError("SignIn Failed!");
+                        }
+                    },
+                    error -> {
+                        Log.d(TAG, "--> SignupByPassword --> error: " + error.networkResponse.statusCode);
+                        signInCallback.onError("SignIn Failed!");
+                    });
+
+            mRequestQueue.add(request);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void SendOpt_ResetPassword(String email, BaseCallback sendOtpCallback) {
         String url = mBaseUrl + BZURL.POST_RECOVERY_PASSWORD_REQUEST_OPT;
 
