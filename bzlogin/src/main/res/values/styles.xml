@@ -43,7 +43,7 @@
     </style>
 
     <style name="myTextInputLayout">
-        <item name="hintTextColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
         <item name="boxStrokeColor">@color/white</item>
     </style>
 
