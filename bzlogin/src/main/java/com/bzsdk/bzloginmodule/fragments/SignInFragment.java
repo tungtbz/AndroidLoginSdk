@@ -153,7 +153,9 @@ public class SignInFragment extends Fragment {
 
 
         TextView signupTextView = getView().findViewById(R.id.open_signup);
-        String signupText = getActivity().getResources().getString(R.string.donthaveaccount_text);
+
+        String dontHaveAnAccountStr = getActivity().getResources().getString(R.string.donthaveaccount_text);
+        String signupText = dontHaveAnAccountStr + " " +getActivity().getResources().getString(R.string.sign_up_text);
         SpannableString signupSpannableString = new SpannableString(signupText);
 
         ClickableSpan signupClickableSpan = new ClickableSpan() {
@@ -162,10 +164,9 @@ public class SignInFragment extends Fragment {
                 //open forget pass fragment
                 Toast.makeText(getActivity(), "Open Signup", Toast.LENGTH_SHORT).show();
                 OpenSignUp();
-
             }
         };
-        signupSpannableString.setSpan(signupClickableSpan, signupText.length() - 7, signupText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        signupSpannableString.setSpan(signupClickableSpan, dontHaveAnAccountStr.length() + 1, signupText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         signupTextView.setText(signupSpannableString);
         signupTextView.setMovementMethod(LinkMovementMethod.getInstance());

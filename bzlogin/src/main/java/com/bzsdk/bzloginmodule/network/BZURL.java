@@ -18,4 +18,7 @@ public class BZURL {
     public static final String POST_RECOVERY_PASSWORD_REQUEST_OPT = "/api/v1/users/recovery-password/request-otp";
     public static final String POST_RECOVERY_PASSWORD_VALIDATE_OPT = "/api/v1/users/recovery-password/validate-otp";
     public static final String PATCH_UPDATE_PASS = "/api/v1/users/password";
+
+    public static final String BASE_URL = "https://api.rofi.games";
+    public static final String BASE_URL_DEBUG = "https://api-demo.rofi.games";
 }

@@ -22,9 +22,11 @@
     <string name="otp_not_empty_error">OTP không đúng</string>
     <string name="message_agree_term">Bạn phải đồng ý với Điều Khoản Sử Dụng</string>
 
-    <string name="term_text">Tôi đã đọc và đồng ý với Điều Khoản Sử Dụng</string>
-    <string name="donthaveaccount_text">Chưa có tài khoản? Đăng ký</string>
-    <string name="alreadyhaveaccount_text">Đã có tài khoản? Đăng nhập</string>
+    <string name="term_text_1">Tôi đã đọc và đồng ý với</string>
+    <string name="term_text_2">Điều Khoản Sử Dụng</string>
+
+    <string name="donthaveaccount_text">Chưa có tài khoản?</string>
+    <string name="alreadyhaveaccount_text">Đã có tài khoản?</string>
 
     <string name="resetpass_text">Đặt lại mật khẩu</string>
 </resources>

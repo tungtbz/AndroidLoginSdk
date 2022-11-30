@@ -16,9 +16,11 @@
     <string name="confirm_new_password_hint_text">Confirm New Password</string>
     <string name="forgetpas_text">Forgot password?</string>
     <string name="or_signin_text">or sign in with</string>
-    <string name="term_text">I have read and agree with the Term and Privacy Policy</string>
-    <string name="donthaveaccount_text">Don\'t have an account? Sign Up</string>
-    <string name="alreadyhaveaccount_text">Already have an account? Sign In</string>
+    <string name="term_text_1">I have read and agree with the</string>
+    <string name="term_text_2">Term and Privacy Policy</string>
+
+    <string name="donthaveaccount_text">Don\'t have an account?</string>
+    <string name="alreadyhaveaccount_text">Already have an account?</string>
 
     <string name="resetpass_text">Reset password</string>
 

@@ -6,14 +6,18 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Cache;
 import com.android.volley.Network;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.StringRequest;
 import com.bzsdk.bzloginmodule.R;
 
 import com.google.gson.Gson;
@@ -24,6 +28,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NetworkService {
     private static NetworkService mInstace = null;
@@ -43,11 +49,48 @@ public class NetworkService {
     public void Init(Activity activity) {
         if (mInit) return;
 
-        mBaseUrl = activity.getResources().getString(R.string.user_url);
+        mBaseUrl = BZURL.BASE_URL;
+
         Log.d(TAG, "Init BaseUrl: " + mBaseUrl);
         CreateRequestQueue(activity.getCacheDir());
 
         mInit = true;
+    }
+
+    public void SetDebug(boolean isDebug){
+        mBaseUrl = isDebug ? BZURL.BASE_URL_DEBUG : BZURL.BASE_URL;
+    }
+
+    public void GetUserInfo(String accessToken , @NonNull GetUserInfoCallback callback){
+        if(accessToken == null) {
+            callback.onError("accessToken is null");
+            return;
+        }
+        String url = mBaseUrl + BZURL.GET_USER_INFO;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(TAG, "GetUserInfo: " + response);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "error: " + error.getLocalizedMessage());
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer " + accessToken);
+                return params;
+            }
+        };
+
+        mRequestQueue.add(stringRequest);
     }
 
     public void SignupByPassword(String userName, String password,
@@ -392,5 +435,10 @@ public class NetworkService {
     }
 
     public interface RequestOtpEvent extends BaseCallback {
+    }
+
+    public interface GetUserInfoCallback{
+        void onSuccess(String jsonStr);
+        void onError(String message);
     }
 }

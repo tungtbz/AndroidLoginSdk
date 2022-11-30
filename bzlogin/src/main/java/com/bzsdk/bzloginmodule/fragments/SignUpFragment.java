@@ -78,7 +78,9 @@ public class SignUpFragment extends Fragment {
 
         TextView termTextView = getView().findViewById(R.id.txt_term);
 
-        String termText = getActivity().getResources().getString(R.string.term_text);
+        String termText1 = getActivity().getResources().getString(R.string.term_text_1);
+        String termText2 = getActivity().getResources().getString(R.string.term_text_2);
+        String termText = termText1 + " " + termText2;
 
         termAndPrivacyDialog = new TermAndPrivacyDialog(getActivity());
 
@@ -91,14 +93,18 @@ public class SignUpFragment extends Fragment {
             }
         };
 
-        fpSpannableString.setSpan(fpClickableSpan, 31, termText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        fpSpannableString.setSpan(fpClickableSpan, termText1.length()  + 1 , termText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         termTextView.setText(fpSpannableString);
         termTextView.setMovementMethod(LinkMovementMethod.getInstance());
         termTextView.setHighlightColor(Color.TRANSPARENT);
 
         TextView signinTextView = getView().findViewById(R.id.txt_backto_signin);
 
-        String backtoSignInText = getActivity().getResources().getString(R.string.alreadyhaveaccount_text);
+        String haveAccountStr1 = getActivity().getResources().getString(R.string.alreadyhaveaccount_text);
+        String haveAccountStr2 = getActivity().getResources().getString(R.string.sign_in_text);
+
+        String backtoSignInText = haveAccountStr1 + " " + haveAccountStr2;
+
         SpannableString backSignInSpannableString = new SpannableString(backtoSignInText);
         ClickableSpan sgClickableSpan = new ClickableSpan() {
             @Override
@@ -109,7 +115,7 @@ public class SignUpFragment extends Fragment {
             }
         };
 
-        backSignInSpannableString.setSpan(sgClickableSpan, 25, backtoSignInText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        backSignInSpannableString.setSpan(sgClickableSpan, haveAccountStr1.length() + 1, backtoSignInText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         signinTextView.setText(backSignInSpannableString);
         signinTextView.setMovementMethod(LinkMovementMethod.getInstance());
         signinTextView.setHighlightColor(Color.TRANSPARENT);

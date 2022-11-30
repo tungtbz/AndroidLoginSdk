@@ -34,7 +34,6 @@ public class LoginActivity extends FragmentActivity {
         setContentView(R.layout.activity_login);
 
         mLoadingDialog = new LoadingDialog(LoginActivity.this);
-        NetworkService.getInstance().Init(LoginActivity.this);
 
         backBtn = findViewById(R.id.back_btn);
         backBtn.setOnClickListener(view -> {

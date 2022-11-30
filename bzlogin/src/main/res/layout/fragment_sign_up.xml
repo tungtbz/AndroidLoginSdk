@@ -78,7 +78,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center_vertical|left"
-                android:text="@string/term_text"
+                android:text="@string/term_text_1"
                 android:textSize="14sp"
                 android:textColor="@color/black"
                 android:textColorLink="@color/myColorPrimary"
