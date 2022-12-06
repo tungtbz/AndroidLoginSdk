@@ -51,15 +51,56 @@
                 android:ems="10"
                 android:hint="@string/confirmpassword_hint_text"
                 android:inputType="textPassword"/>
-
-
         </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ref_layout"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/usernamepass_layout">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Ref Code: "
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/ref_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/editex_bg"
+                android:ems="10"
+                android:textColor="@color/black"
+
+                android:textColorHint="@android:color/darker_gray"
+                android:paddingLeft="10dp"
+                android:textSize="14sp"
+                android:hint="@string/referral_code"
+                android:inputType="textEmailAddress"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView9"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/_term"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_below="@id/usernamepass_layout"
+            android:layout_below="@id/ref_layout"
             android:layout_centerHorizontal="true">
 
             <CheckBox

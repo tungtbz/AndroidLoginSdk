@@ -38,4 +38,7 @@
 
     <string translatable="false" name="user_url">https://api.rofi.games</string>
     <string translatable="false" name="term_url">https://rofi.games/privacy-policy/</string>
+    <string name="referral_code">Referral Code</string>
+
+
 </resources>

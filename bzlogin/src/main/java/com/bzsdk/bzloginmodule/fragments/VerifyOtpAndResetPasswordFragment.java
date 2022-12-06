@@ -1,12 +1,6 @@
 package com.bzsdk.bzloginmodule.fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-//import com.bzsdk.bzloginmodule.BuildConfig;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.bzsdk.bzloginmodule.LoginService;
 import com.bzsdk.bzloginmodule.R;
 import com.bzsdk.bzloginmodule.ResetPasswordActivity;
-import com.bzsdk.bzloginmodule.network.NetworkService;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
+import com.rofi.core.network.NetworkService;
 
 public class VerifyOtpAndResetPasswordFragment extends Fragment {
     EditText mOtpEditText, mPasswordEditText, mPassConfirmEditText;

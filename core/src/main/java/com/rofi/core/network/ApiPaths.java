@@ -1,6 +1,6 @@
-package com.bzsdk.bzloginmodule.network;
+package com.rofi.core.network;
 
-public class BZURL {
+public class ApiPaths {
     public static final String GET_USER_INFO = "/api/v1/users/info";
     public static final String POST_SIGNUP_BY_PASS = "/api/v1/users/signup";
     public static final String POST_SIGNUP_REQUEST_OPT = "/api/v1/users/signup-email/request-otp";
@@ -19,6 +19,5 @@ public class BZURL {
     public static final String POST_RECOVERY_PASSWORD_VALIDATE_OPT = "/api/v1/users/recovery-password/validate-otp";
     public static final String PATCH_UPDATE_PASS = "/api/v1/users/password";
 
-    public static final String BASE_URL = "https://api.rofi.games";
-    public static final String BASE_URL_DEBUG = "https://api-demo.rofi.games";
+
 }

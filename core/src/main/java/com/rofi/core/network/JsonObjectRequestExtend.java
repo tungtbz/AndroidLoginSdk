@@ -1,11 +1,10 @@
-package com.bzsdk.bzloginmodule.network;
+package com.rofi.core.network;
 
 import androidx.annotation.Nullable;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Response;
-
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
 
@@ -57,7 +56,9 @@ public class JsonObjectRequestExtend extends JsonRequest<JSONObject> {
                             response.data,
                             HttpHeaderParser.parseCharset(response.headers, PROTOCOL_CHARSET));
 
-            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONObject jsonObject = new JSONObject(jsonString)
+                                        .put(Constants.HTTP_STATUS_CODE_STR, response.statusCode);
+
             return Response.success(jsonObject, HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
             return Response.error(new ParseError(e));

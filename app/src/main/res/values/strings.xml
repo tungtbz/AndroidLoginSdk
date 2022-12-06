@@ -1,8 +1,14 @@
 <resources>
-    <string name="app_name">LoginModule</string>
+    <string name="app_name" translatable="false">LoginModule</string>
 
-    <string name="facebook_app_id">1321596678410752</string>
-    <string name="fb_login_protocol_scheme">fb1321596678410752</string>
-    <string name="facebook_client_token">8be5a511b18b39d791dc02354d50a368</string>
+    <string name="facebook_app_id" translatable="false">1321596678410752</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb1321596678410752</string>
+    <string name="facebook_client_token" translatable="false">8be5a511b18b39d791dc02354d50a368</string>
     <string name="default_web_client_id">79670645230-5q1c3cv3cmbtgg8mlsbnkb9p8po92skp.apps.googleusercontent.com</string>
+
+    <string name="gameId" translatable="false">RG-02</string>
+    <string name="campaignCode" translatable="false">IDLNEW</string>
+    <string name="refCode" translatable="false">XZ1LQWMD</string>
+    <string name="demo_access_token" translatable="false">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI3OTdhMTJmZS1hMzcxLTQzOWMtYmY2OC1jN2VmMjI3ZDI3ODUiLCJlbWFpbCI6IiIsIndhbGxldCI6IiIsIm5iZiI6MTY2OTk1NjA1NCwiZXhwIjoxNjY5OTkyMDU0LCJpYXQiOjE2Njk5NTYwNTQsImlzcyI6ImlkLnJvZmkuZ2FtZXMiLCJhdWQiOiJhcGkucm9maS5nYW1lcyJ9.aB_eDd27LvRwQGt_FWs4rIzZu6wfYy0c69oumRLT14E</string>
+
 </resources>

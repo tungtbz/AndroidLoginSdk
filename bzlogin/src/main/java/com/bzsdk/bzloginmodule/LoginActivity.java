@@ -1,21 +1,24 @@
 package com.bzsdk.bzloginmodule;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.bzsdk.bzloginmodule.dialogs.LoadingDialog;
 import com.bzsdk.bzloginmodule.fragments.SignInFragment;
 import com.bzsdk.bzloginmodule.fragments.SignUpFragment;
-import com.bzsdk.bzloginmodule.network.NetworkService;
+import com.bzsdk.bzloginmodule.network.LoginResponse;
+import com.google.gson.Gson;
+import com.rofi.core.network.Constants;
 
 public class LoginActivity extends FragmentActivity {
 
@@ -44,6 +47,10 @@ public class LoginActivity extends FragmentActivity {
             ShowSignInFragment();
         }
 
+        // ATTENTION: This was auto-generated to handle app links.
+        Intent appLinkIntent = getIntent();
+        String appLinkAction = appLinkIntent.getAction();
+        Uri appLinkData = appLinkIntent.getData();
     }
 
     @Override
@@ -82,6 +89,7 @@ public class LoginActivity extends FragmentActivity {
     }
 
     public void onLoginSuccess(String data) {
+        LoginService.getInstance().SaveAccessTokenAfterLogin(getApplicationContext(), data);
         mLoadingDialog.HideDialog();
         finish();
         LoginService.getInstance().DispatchOnLogin(data);

@@ -1,4 +1,4 @@
-package com.bzsdk.bzloginmodule.network;
+package com.rofi.core.network;
 
 import android.app.Activity;
 import android.util.Log;
@@ -18,8 +18,6 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
-import com.bzsdk.bzloginmodule.R;
-
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -49,7 +47,7 @@ public class NetworkService {
     public void Init(Activity activity) {
         if (mInit) return;
 
-        mBaseUrl = BZURL.BASE_URL;
+        mBaseUrl = Constants.BASE_URL;
 
         Log.d(TAG, "Init BaseUrl: " + mBaseUrl);
         CreateRequestQueue(activity.getCacheDir());
@@ -58,7 +56,7 @@ public class NetworkService {
     }
 
     public void SetDebug(boolean isDebug){
-        mBaseUrl = isDebug ? BZURL.BASE_URL_DEBUG : BZURL.BASE_URL;
+        mBaseUrl = isDebug ? Constants.BASE_URL_DEBUG : Constants.BASE_URL;
     }
 
     public void GetUserInfo(String accessToken , @NonNull GetUserInfoCallback callback){
@@ -66,18 +64,20 @@ public class NetworkService {
             callback.onError("accessToken is null");
             return;
         }
-        String url = mBaseUrl + BZURL.GET_USER_INFO;
+        String url = mBaseUrl + ApiPaths.GET_USER_INFO;
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d(TAG, "GetUserInfo: " + response);
+//                        Log.d(TAG, "GetUserInfo: " + response);
+                        callback.onSuccess(response);
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "error: " + error.getLocalizedMessage());
+//                        Log.d(TAG, "error: " + error.getLocalizedMessage());
+                        callback.onError(error.getLocalizedMessage());
                     }
                 }
         ) {
@@ -96,7 +96,7 @@ public class NetworkService {
     public void SignupByPassword(String userName, String password,
                                  @Nullable String email,
                                  @NonNull SignUpCallback signUpEventListener) {
-        String url = mBaseUrl + BZURL.POST_SIGNUP_BY_PASS;
+        String url = mBaseUrl + ApiPaths.POST_SIGNUP_BY_PASS;
         Log.d(TAG, "--> SignupByPassword --> BZURL: " + url);
         Log.d(TAG, "--> SignupByPassword --> userName: " + userName);
         Log.d(TAG, "--> SignupByPassword --> password: " + password);
@@ -144,7 +144,7 @@ public class NetworkService {
     }
 
     public void SigninWithPass(String userName, String pass, @NonNull SignInCallback signinEvent) {
-        String url = mBaseUrl + BZURL.POST_LOGIN_BY_PASS;
+        String url = mBaseUrl + ApiPaths.POST_LOGIN_BY_PASS;
 //        mSigninEvent = signinEvent;
         Log.d(TAG, "--> SigninWithPass --> BZURL: " + url);
         Log.d(TAG, "--> SigninWithPass --> userName: " + userName);
@@ -192,7 +192,7 @@ public class NetworkService {
     }
 
     public void SignInWithGG(String idToken, SignInCallback signinEvent) {
-        String url = mBaseUrl + BZURL.POST_LOGIN_BY_GOOGLE;
+        String url = mBaseUrl + ApiPaths.POST_LOGIN_BY_GOOGLE;
         Log.d(TAG, "--> SignInWithGG --> URL: " + url);
         Log.d(TAG, "--> SignInWithGG --> token: " + idToken);
 
@@ -239,7 +239,7 @@ public class NetworkService {
     }
 
     public void SignInWithFb(String fbToken, SignInCallback signInCallback) {
-        String url = mBaseUrl + BZURL.POST_LOGIN_BY_FACEBOOK;
+        String url = mBaseUrl + ApiPaths.POST_LOGIN_BY_FACEBOOK;
         Log.d(TAG, "--> SignInWithFb --> URL: " + url);
         Log.d(TAG, "--> SignInWithFb --> fbToken: " + fbToken);
 
@@ -285,7 +285,7 @@ public class NetworkService {
     }
 
     public void SignInByGuest(String uid, SignInCallback signInCallback){
-        String url = mBaseUrl + BZURL.POST_LOGIN_BY_GUEST;
+        String url = mBaseUrl + ApiPaths.POST_LOGIN_BY_GUEST;
 
         try {
             JSONObject requestData = new JSONObject()
@@ -313,7 +313,7 @@ public class NetworkService {
     }
 
     public void SendOpt_ResetPassword(String email, BaseCallback sendOtpCallback) {
-        String url = mBaseUrl + BZURL.POST_RECOVERY_PASSWORD_REQUEST_OPT;
+        String url = mBaseUrl + ApiPaths.POST_RECOVERY_PASSWORD_REQUEST_OPT;
 
         try {
             JSONObject requestData = new JSONObject()
@@ -359,7 +359,7 @@ public class NetworkService {
     }
 
     public void ValidateOpt_ResetPassword(String account, String otp, String newPassword, BaseCallback sendOtpCallback) {
-        String url = mBaseUrl + BZURL.POST_RECOVERY_PASSWORD_VALIDATE_OPT;
+        String url = mBaseUrl + ApiPaths.POST_RECOVERY_PASSWORD_VALIDATE_OPT;
         Log.d(TAG, "--> ValidateOpt_ResetPassword --> URL: " + url);
         Log.d(TAG, "--> ValidateOpt_ResetPassword --> otp: " + otp);
         try {
@@ -382,21 +382,6 @@ public class NetworkService {
                     error -> {
                         Log.d(TAG, "--> ValidateOpt_ResetPassword --> error: " + error.networkResponse.statusCode);
                         sendOtpCallback.onError("ValidateOpt Error!");
-//                        try {
-//                            String jsonString =
-//                                    new String(
-//                                            error.networkResponse.data,
-//                                            HttpHeaderParser.parseCharset(error.networkResponse.headers, "utf-8"));
-//
-//                            JSONArray jsonArray = new JSONArray(jsonString);
-//                            JSONObject jsonObject = jsonArray.getJSONObject(0);
-//                            String message = jsonObject.getString(Constants.MESSAGE_STR);
-//
-//                            sendOtpCallback.onError(message);
-//
-//                        } catch (UnsupportedEncodingException | JSONException e) {
-//                            e.printStackTrace();
-//                        }
                     });
 
             mRequestQueue.add(request);
@@ -404,6 +389,14 @@ public class NetworkService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public RequestQueue GetRequestQueue(){
+        return mRequestQueue;
+    }
+
+    public String getUrl(String apiPath){
+        return mBaseUrl + apiPath;
     }
 
     private void CreateRequestQueue(File rootDirectory) {
@@ -420,7 +413,6 @@ public class NetworkService {
 
     public interface BaseCallback {
         void onSuccess();
-
         void onError(String message);
     }
 
@@ -430,7 +422,6 @@ public class NetworkService {
 
     public interface SignInCallback {
         void onSuccess(String jsonStr);
-
         void onError(String message);
     }
 

@@ -29,4 +29,5 @@
     <string name="alreadyhaveaccount_text">Đã có tài khoản?</string>
 
     <string name="resetpass_text">Đặt lại mật khẩu</string>
+    <string name="referral_code">Mã giới thiệu</string>
 </resources>

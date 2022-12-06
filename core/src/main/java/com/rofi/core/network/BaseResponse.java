@@ -1,4 +1,4 @@
-package com.bzsdk.bzloginmodule.network;
+package com.rofi.core.network;
 
 public class BaseResponse {
     public int code;

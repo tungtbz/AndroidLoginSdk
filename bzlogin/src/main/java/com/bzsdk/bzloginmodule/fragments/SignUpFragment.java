@@ -1,13 +1,9 @@
 package com.bzsdk.bzloginmodule.fragments;
 
-import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
@@ -19,25 +15,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bzsdk.bzloginmodule.LoginActivity;
-import com.bzsdk.bzloginmodule.dialogs.TermAndPrivacyDialog;
-import com.bzsdk.bzloginmodule.network.NetworkService;
 import com.bzsdk.bzloginmodule.R;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
+import com.bzsdk.bzloginmodule.dialogs.TermAndPrivacyDialog;
+import com.rofi.core.network.NetworkService;
+import com.rofi.referral.RofiReferralHelper;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignUpFragment extends Fragment {
     CheckBox termCheckbox;
-    EditText mUserNameTextInputEditText, mPasswordTextInputEditText, mConfirmPasswordTextInputEditText;
+    EditText mUserNameTextInputEditText, mPasswordTextInputEditText, mConfirmPasswordTextInputEditText, mRefCodeEditText;
+
     Pattern mEmailPattern;
+
     private TermAndPrivacyDialog termAndPrivacyDialog;
 
     public SignUpFragment() {
@@ -62,12 +59,19 @@ public class SignUpFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mRefCodeEditText.setText(RofiReferralHelper.getInstance().GetRefCodeFromCache());
+    }
+
+    @Override
     public void onStop() {
 
         super.onStop();
     }
 
     private void SetupView() {
+        mRefCodeEditText = getView().findViewById(R.id.ref_edit_text);
 
         termCheckbox = getView().findViewById(R.id.checkbox_term);
 
@@ -132,6 +136,7 @@ public class SignUpFragment extends Fragment {
         String userName = mUserNameTextInputEditText.getText().toString();
         String pass = mPasswordTextInputEditText.getText().toString();
         String passConfirm = mConfirmPasswordTextInputEditText.getText().toString();
+        String refCode = mRefCodeEditText.getText().toString();
 
         //check username
         if (userName.length() == 0) {

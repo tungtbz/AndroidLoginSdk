@@ -1,7 +1,13 @@
 package com.bzsdk.bzloginmodule;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+
 import com.bzsdk.bzloginmodule.network.LoginResponse;
-import com.bzsdk.bzloginmodule.network.NetworkService;
+import com.rofi.core.network.Constants;
+import com.rofi.core.network.NetworkService;
+
 import com.google.gson.Gson;
 
 public class LoginService {
@@ -9,12 +15,17 @@ public class LoginService {
     private String currentAccount;
     private String currentToken;
     private String googleWebClientId;
+    private String refCodeCached;
 
     private SignInListener signInListener;
 
     public static LoginService getInstance() {
         if (instance == null) instance = new LoginService();
         return instance;
+    }
+
+    public void Init(Context context){
+        LoadSavedAccessToken(context);
     }
 
     public void setGoogleWebClientId(String id) {
@@ -50,10 +61,26 @@ public class LoginService {
     }
 
     public void DispatchOnLogin(String data) {
-
-        LoginResponse responseData = new Gson().fromJson(data, LoginResponse.class);
-        currentToken = responseData.accessToken;
         if (signInListener != null) signInListener.onSignInSuccess(data);
+    }
+
+    public void SaveAccessTokenAfterLogin(Context context, String loginData){
+        LoginResponse responseData = new Gson().fromJson(loginData, LoginResponse.class);
+        SharedPreferences sharedPref = context.getSharedPreferences(Constants.ACC_FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(Constants.ACC_KEY, responseData.accessToken);
+        editor.apply();
+
+        currentToken = responseData.accessToken;
+    }
+
+    private void LoadSavedAccessToken(Context context){
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                Constants.ACC_FILE_NAME, Context.MODE_PRIVATE);
+        String defaultValue = "";
+        String accessToken = sharedPref.getString(Constants.ACC_KEY, defaultValue);
+//        Log.d(LoginService.class.toString(), "LoadSavedAccessToken: " + accessToken);
+        setCurrentToken(accessToken);
     }
 
     public interface SignInListener {
